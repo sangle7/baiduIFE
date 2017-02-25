@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>juzhong</title>
+	<style>
+	*{
+		margin:0;
+		padding: 0;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+		#grey{
+			width: 400px;
+			height: 200px;
+			background-color: #ccc;
+			margin: -100px auto 0 auto;
+			position: relative;
+			top:50%;
+			overflow: hidden;
+		}
+		#circle1{
+			height: 100px;
+			width: 100px;
+			background-color: orange;
+			border-radius:50%;
+			position: absolute;
+			left:-50px;
+			top:-50px;
+		}
+		#circle2{
+			height: 100px;
+			width: 100px;
+			background-color: orange;
+			border-radius:50%;
+			position: absolute;
+			right:-50px;
+			bottom:-50px;
+		}
+	</style>
+</head>
+<body>
+	<div id='grey'>
+		<div id='circle1'></div>
+		<div id='circle2'></div>
+	</div>
+</body>
+</html>

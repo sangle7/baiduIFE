@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task18</title>
+	<style>
+		#container{
+			width:80%;
+			height: 50px;
+			border: 1px solid black;
+		}
+		.block{
+		width:50px;background-color: red;
+			padding:2px;box-sizing: border-box;display: inline-block;
+			border: 1px solid white;
+		}
+	</style>
+</head>
+<body>
+<textarea id='input-num'></textarea><button id='leftin'>左侧入</button><button id='rightin'>右侧入</button><button id='leftout'>左侧出</button><button id='rightout'>右侧出</button>
+<input id='search-num'/><button id='search'></button>
+<div id='container'><div>
+<script>
+	let data=[];
+	document.getElementById('leftin').onclick=function(){
+		data=document.getElementById('input-num').value.split(';').concat(data)
+		render();
+	}
+	document.getElementById('rightin').onclick=function(){
+		data=data.concat(document.getElementById('input-num').value.split(';'))
+		render();
+	}
+	document.getElementById('leftout').onclick=function(){
+		data.shift()
+		render();
+	}
+	document.getElementById('rightout').onclick=function(){
+		data.pop()
+		render();
+	}
+	document.getElementById('search').onclick=function(){
+		let searchword=document.getElementById('search-num').value
+		data.map(function(elem, index) {
+			if(elem.test(/searchword/));
+		})
+	}
+	function render(){
+		let _blocks=data.map(function(elem, index) {
+			return "<div class='block' style='height:"+elem*0.5+"px'>"+elem+"</div>";
+		})
+		document.getElementById('container').innerHTML=_blocks.join('');
+	}
+</script>
+</body>
+</html>

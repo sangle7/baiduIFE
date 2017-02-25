@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>square</title>
+	<style>
+	html,body{
+		width: 100%;height: 100%
+	}
+		#square{
+			width: 46px;height: 46px;background-color: red;
+			position: relative;
+			top:194px;
+			left: 175px;
+			transition: .2s;
+			-webkit-transition:.2s;
+		}
+		#squarehead{
+			position: absolute;
+			width:100%;
+			height: 20%;
+			background-color: blue;
+			transition: .2s;
+			-webkit-transition:.2s;
+		}
+		#main{
+			width:400px;
+			height: 400px;
+			background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488179414&di=19113101ab13b3bf16df834cf220a43c&imgtype=jpg&er=1&src=http%3A%2F%2Fstatic2.photo.sina.com.cn%2Fbmiddle%2F4c4af5c1447e48a1ea2b1');
+			background-repeat: no-repeat;
+			-webkit-background-size: cover;
+			background-size: cover;
+		}
+	</style>
+</head>
+<body>
+<div id='main'>
+<div id='square'><div id='squarehead'></div></div>
+</div>
+<input type='text' id='info'/><button id='start'>执行！</button>
+<script>
+let squaremid={
+	rotate:0,
+	top:194,
+	left:175,
+}
+	document.getElementById('start').onclick=function(){
+		switch(document.getElementById('info').value.toUpperCase()){
+		case 'GO':
+		if(squaremid.rotate%360==0){
+		squaremid.top-=47;
+	}else if(squaremid.rotate%360==180){
+		squaremid.top+=47;
+	}else if(squaremid.rotate%360==90){
+		squaremid.left+=47;
+	}else if(squaremid.rotate%360==270){
+		squaremid.left-=47;
+	}
+		render();
+		break;
+		case 'TUN RIG':
+		squaremid.rotate+=90;
+		render();
+		break;
+		case 'TUN LEF':
+		squaremid.rotate-=90;
+		render();
+		break;
+		case 'TRA LEF':
+		squaremid.left-=47;
+		render();
+		break;
+		case 'TRA RIG':
+		squaremid.left+=47;
+		render();
+		break;
+		case 'TRA TOP':
+		squaremid.top-=47;
+		render();
+		break;
+		case 'TRA BOT':
+		squaremid.left+=47;
+		render();
+		break;
+		case 'MOV LEF':
+		squaremid.rotate=270;
+		squaremid.left-=47;
+		render();
+		break;
+		case 'MOV RIG':
+		squaremid.rotate=90;
+		squaremid.left+=47;
+		render();
+		break;
+		case 'MOV TOP':
+		squaremid.rotate=0;
+		squaremid.top-=47;
+		render();
+		break;
+		case 'MOV BOT':
+		squaremid.rotate=180;
+		squaremid.top+=47;
+		render();
+		break;
+	}
+	}
+	function render(){
+		document.getElementById('square').style.top=squaremid.top+'px';
+		document.getElementById('square').style.left=squaremid.left+'px';
+		document.getElementById('square').style.transform='rotate('+squaremid.rotate+'deg)'
+	}
+</script>
+</body>
+</html>

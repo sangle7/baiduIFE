@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>特工小游戏</title>
+	<style>
+	*{
+		margin: 0;padding: 0;
+	}
+		#ball{
+			height: 30px;width: 30px;border-radius: 50%;background-color: orange;
+			position: absolute;top: 10px;left:135px;
+		}
+		#end{
+			height: 20px;width: 50px;background-color: pink;
+			position: absolute;top: 428px;left:135px;text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas'> </canvas>
+	<div id='ball'></div>
+	<div id='end'>终点</div>
+	<script>
+	 let canvas = document.getElementById('canvas');
+		let ctx = canvas.getContext('2d');  
+		canvas.width = 300;
+        canvas.height = 450;
+
+        for(let i=0;i<10;i++){
+        	let x1=300*Math.random(),
+        	y1=420*Math.random(),
+        	y2=y1+20+50*Math.random()
+        	drawVerticalLine(x1,y1,y2)
+        }
+
+        for(let i=0;i<10;i++){
+        	let x1=300*Math.random(),
+        	x2=x1+30+50*Math.random()
+        	y2=450*Math.random()
+        	drawHorizontalLine(x1,x2,y2)
+        }
+
+        function drawVerticalLine(x1,y1,y2){
+        	ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x1,y2);
+    ctx.lineWidth = 30;
+    ctx.stroke();
+        }
+
+        function drawHorizontalLine(x1,x2,y2){
+        	ctx.beginPath();
+    ctx.moveTo(x1,y2);
+    ctx.lineTo(x2,y2);
+    ctx.lineWidth = 30;
+    ctx.stroke();
+        }
+        
+        (function drawBorder(){
+        ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(300,0);
+    ctx.lineTo(300,450);
+    ctx.lineTo(0,450);
+    ctx.lineWidth = 2;
+    ctx.closePath();
+    ctx.stroke();
+}());
+
+        let ball=document.getElementById('ball');
+        _situation=false;
+
+        ball.addEventListener('click', startmove)
+
+        function startmove(event) {
+        	_situation=!_situation;
+        	console.log(_situation)
+        	if(_situation){
+            var x = event.clientX - ball.offsetLeft;
+            var y = event.clientY - ball.offsetTop;
+            ball.onmousemove=function(e){
+            let _balltop
+            if(e.clientY<y){
+            	_balltop= 0
+            }else if(e.clientY-y>420){
+            	_balltop= 420
+            }else{
+            	_balltop= e.clientY-y
+            }
+
+            let _ballleft
+            if(e.clientX<x){
+            	_ballleft= 0
+            }else if(e.clientX-x>270){
+            	_ballleft= 270
+            }else{
+            	_ballleft= e.clientX-x
+            }
+
+            ball.style.top=_balltop+'px';
+        	ball.style.left=_ballleft+'px';
+
+        	testIfEnd();
+            }
+        }else{
+        	ball.onmousemove=null;
+        }
+        }
+
+        function testIfEnd(){
+        	if(ball.offsetTop>405&&ball.offsetLeft>110&&ball.offsetLeft<180){
+        		ball.onmousemove=null;
+        		_situation=!_situation;
+        		alert('you win!');
+        		window.location.reload(); 
+        	}
+        }
+
+       
+ 
+	</script>
+</body>
+</html>
+

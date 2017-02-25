@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task18</title>
+	<style>
+		#container{
+			width:80%;
+			height: 50px;
+			border: 1px solid black;
+		}
+		.block{
+		width:50px;background-color: red;
+			padding:2px;box-sizing: border-box;display: inline-block;
+			border: 1px solid white;
+		}
+	</style>
+</head>
+<body>
+<textarea id='input-num'></textarea><button id='leftin'>左侧入</button><button id='rightin'>右侧入</button><button id='leftout'>左侧出</button><button id='rightout'>右侧出</button>
+<div id='container'><div>
+<script>
+	let data=[];
+	document.getElementById('leftin').onclick=function(){
+		if(isNaN(document.getElementById('input-num').value)===false&&document.getElementById('input-num').value>9&&document.getElementById('input-num').value<101&&document.getElementById('input-num').value%1 === 0){
+			data.unshift(document.getElementById('input-num').value)
+		}
+		else{
+			alert('wrong number')
+		}
+		render();
+	}
+	document.getElementById('rightin').onclick=function(){
+		if(isNaN(document.getElementById('input-num').value)===false&&document.getElementById('input-num').value>9&&document.getElementById('input-num').value<101&&document.getElementById('input-num').value%1 === 0){
+			data.push(document.getElementById('input-num').value)
+		}
+		else{
+			alert('wrong number')
+		}
+		render();
+	}
+	document.getElementById('leftout').onclick=function(){
+		data.shift()
+		render();
+	}
+	document.getElementById('rightout').onclick=function(){
+		data.pop()
+		render();
+	}
+	function render(){
+		let _blocks=data.map(function(elem, index) {
+			return "<div class='block' style='height:"+elem*0.5+"px'>"+elem+"</div>";
+		})
+		document.getElementById('container').innerHTML=_blocks.join('');
+	}
+</script>
+</body>
+</html>
