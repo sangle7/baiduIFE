@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表格排序</title>
+	<style>
+	thead{
+		background-color: grey;color: white;cursor: pointer;
+	}
+	th,td{
+		width: 100px;text-align: center;height: 30px;
+	}
+	i{
+		margin-left: 10px;
+		color:white;
+	}
+	.fa-sort-asc{
+		position: absolute;
+	}
+	</style>
+</head>
+<body>
+	<table border="1">
+		<thead>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<p>点击表头即可排序</p>
+</body>
+<script src="https://use.fontawesome.com/e5afcaefab.js"></script>
+<script>
+	let data=[
+	{'name':'Amy',
+	'chinese':'100',
+	'math':'80',
+	'english':'70',
+	'total':'250'},
+	{'name':'Tom',
+	'chinese':'60',
+	'math':'70',
+	'english':'100',
+	'total':'230'},
+	{'name':'Joe',
+	'chinese':'90',
+	'math':'90',
+	'english':'80',
+	'total':'260'},
+	];
+	renderHead();
+	render();
+	document.querySelector('thead').onclick=handleChange;
+
+	function handleChange(e){
+		let num=e.target.innerHTML.indexOf("<");
+		let _key=e.target.innerHTML.slice(0,num);
+		let items= document.getElementsByTagName('i')
+		if(e.target.getElementsByClassName('fa-sort-asc')[0].style.color=='black'){
+			data.sort(function(a,b){
+			return a[_key]-b[_key];
+		});
+			for(let i=0;i<items.length;i++){
+				items[i].style.color='white'
+			}
+		e.target.getElementsByClassName('fa-sort-desc')[0].style.color='black'
+		render();
+		}else{
+		data.sort(function(b,a){
+			return a[_key]-b[_key]
+		});
+		for(let i=0;i<items.length;i++){
+				items[i].style.color='white'
+			}
+		e.target.getElementsByClassName('fa-sort-asc')[0].style.color='black';
+		render();
+	}
+}
+
+function renderHead(){
+	let theaddata=[]
+	for(let key in data[0]){
+		theaddata.push( '<th>'+key+ '<i class="fa fa-sort-asc" aria-hidden="true"></i><i class="fa fa-sort-desc" aria-hidden="true"></i></th>')
+	}
+	document.querySelector('thead').innerHTML='<tr>'+theaddata.join('')+'</tr>';
+	document.getElementsByTagName('i')[0].style.display='none';
+	document.getElementsByTagName('i')[1].style.display='none';
+}
+	function render(){
+		let tbodydata=[];
+	for(let i=0;i<data.length;i++){
+		let _temp=[]
+		for(key in data[i]){
+		_temp.push( '<td>'+data[i][key]+'</td>')
+	}
+	tbodydata[i]=_temp.join('')
+	}
+
+	document.querySelector('tbody').innerHTML='<tr>'+tbodydata.join('</tr><tr>')+'</tr>';
+}
+</script>
+</html>

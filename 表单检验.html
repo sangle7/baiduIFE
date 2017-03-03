@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单检验</title>
+    <style type="text/css">
+        * {
+            font-family: '微软雅黑';
+            font-size: 15px;
+            color: #3c3c3c;
+        }
+        div{
+            margin:20px;
+        }
+        #mainform {
+            width: 70%;
+            height: 300px;
+            padding: 25px;
+            position: relative;
+            margin: 150px auto;
+            background: white;
+            border: 1px dashed orange;
+        }
+        
+        p {
+            display: inline;
+            color: grey;
+            font-size: 12px;
+        }
+        
+        #count {
+            font-size: 12px;
+            color:grey;
+            padding:0;
+            margin: 0;
+            visibility: hidden;
+            margin-left: 83px
+        }
+        
+        #em {
+            background: orange;
+            width: 175px;
+            margin: 3px 0 7px 80px
+        }
+        
+        em {
+            opacity: 0.2;
+            display: inline-block;
+            width: 51px;
+            text-align: center
+        }
+        
+        em:first-child {
+            background: orange;
+            opacity: 1
+        }
+        
+        .active {
+            background: orange;
+            opacity: 1
+        }
+        
+        input {
+            margin-left: 80px;
+        }
+        
+        b {
+            position: absolute;
+        }
+        #un{
+            letter-spacing: 7.5px;
+        }
+        #pw{
+            letter-spacing: 30px;
+        }
+        #email{
+            letter-spacing: 30px;
+        }
+        #buttons{
+            position: relative;
+            left:0;
+            right:0;
+            margin: 0 auto;
+        }
+        #signin,#reset{
+            position: absolute;
+            background-color:#e29d1e;
+            color:white;
+            border:1px dashed orange;
+            padding:5px;
+            width:60px;
+            left:50%;
+        }#signin{
+            margin-left: 30px;
+        }#reset{
+            margin-left: -90px;
+        }
+       
+        #signin:hover,#reset:hover{
+            cursor: pointer;
+        }
+        span{
+            font-weight: 700;
+            color:black;
+            position: absolute;
+            z-index: 100;
+            left:65px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id='mainform' method="post">
+        <div class='inputform'>
+            <label><b id='un'>会员名<span>:</span></b>
+            <input type="text">
+        </label>
+        <p></p>
+        <h3 id="count">0个字符</h3>
+        </div>
+        
+        <div class='inputform'>
+        <label><b id='pw'>密码<span>:</span></b>
+            <input type="password">
+        </label>
+        <p></p>
+        </div>
+        
+        <div class='inputform'>
+        <label><b id='rpw'>确认密码<span>:</span></b>
+            <input type="password" disabled>
+        </label>
+        <p></p>
+        </div>
+        
+        <div class='inputform'>
+        <label><b id='email'>邮箱<span>:</span></b>
+            <input type="email">
+        </label>
+        <p></p>
+        </div>
+
+         <div class='inputform'>
+        <label><b id='phone'>手机<span>:</span></b>
+            <input type="text">
+        </label>
+        <p></p>
+        </div>
+
+        <div id='buttons'>
+        <input type="button" value='注册' id='signin'/>
+        </div>
+    </form>
+
+    <script>
+    let input =document.getElementsByTagName('input'),ps=document.getElementsByTagName('p')
+
+    inputFocus(0,'必填，长度为6-16个字符');inputBlur(0);
+    inputFocus(1,'必填，长度为6-16个字符');inputBlur(1);
+    inputFocus(2,'必填');
+    inputFocus(3,'必填');
+    inputFocus(4,'必填，长度为11个数字');
+
+    function inputFocus(number,text){
+    	input[number].onfocus=function(){
+    		ps[number].innerHTML = text;
+    	}
+    }
+
+    function inputBlur(number){
+    	input[number].onblur=function(){
+    		var reg = /[^\w\u4e00-\u9fa5]/g
+    		if (reg.test(this.value)) {
+            ps[number].innerHTML = '含有非法字符！';
+        }
+        //不能为空
+        else if (this.value == "") {
+            ps[number].innerHTML = "不能为空！";
+        }
+        //长度超过25个字符
+        else if (getlength(this.value) > 16) {
+            ps[number].innerHTML = "长度超过16个字符！";
+        }
+        //长度少于6个字符
+        else if (getlength(this.value)  < 6) {
+            ps[number].innerHTML = "长度少于6个字符！";
+        }
+        //OK
+        else {
+            ps[number].innerHTML = "OK！";
+    		input[number+1].removeAttribute("disabled");
+        }
+    	}
+    }
+
+    input[2].onblur=function(){
+    	if(input[2].value==input[1].value){
+    		ps[2].innerHTML= "OK！";
+    	}else{
+    		ps[2].innerHTML= "两次输入不一致，请重新输入";
+    	}
+    }
+
+     input[3].onblur = function () {
+        var mregex=/^[\w._+-]+@[\w-]+(\.\w{2,4})+$/;
+
+        //不能为空
+        if (this.value == "") {
+            ps[3].innerHTML = '不能为空！';
+        }else if (!mregex.test(this.value)) {
+            ps[3].innerHTML = '格式错误！';
+        }else {
+            ps[3].innerHTML = 'OK！';
+        }
+    }
+
+    input[4].onblur = function () {
+        var mregex=/^1\d{10}$/;
+
+        //不能为空
+        if (this.value == "") {
+            ps[4].innerHTML = '不能为空！';
+        }else if (!mregex.test(this.value)) {
+            ps[4].innerHTML = '格式错误！';
+        }else {
+            ps[4].innerHTML = 'OK！';
+        }
+    }
+
+
+function getlength(text) {
+    // \x00-xff代表单字节字符。
+    var newtext = text.replace(/[^\x00-\xff]/g, 'XX');
+    return newtext.length;
+}
+
+
+document.getElementById('signin').onclick=function(){
+	for(let i=0;i<5;i++){
+		if(ps[i].innerHTML!=='OK！'){
+			console.log(ps[i].innerHTML)
+			alert('表单未填写完全');
+			return;
+		}
+	}
+	
+		alert('表单提交成功');
+		location.reload();
+}
+        
+    </script>
+</body>
+
+</html>
