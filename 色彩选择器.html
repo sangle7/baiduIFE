@@ -106,14 +106,6 @@
         left: 410px;
     }
     
-    #colordisplay {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        height: 50px;
-        width: 50px
-    }
-    
     #RGBtype,
     #HSLtype {
         margin-top: 20px;
@@ -155,7 +147,6 @@
                 </label>
             </div>
         </div>
-        <div id='colordisplay'></div>
     </div>
     <script>
     let canvas2 = document.getElementById('canvas2');
@@ -211,7 +202,6 @@
 
     function generateNewColor() {
         let _inputRGB = document.getElementsByTagName('input'),
-            _colorDisplay = document.getElementById('colordisplay'),
             _canvas1 = document.getElementsByClassName('canvas1')[0]
         for (let i = 0; i < 3; i++) {
             _inputRGB[i].onkeyup = function() {
@@ -225,10 +215,22 @@
         }
         for (let i = 3; i < 6; i++) {
             _inputRGB[i].onkeyup = function() {
+            	if(this.value<0){
+            		this.value=0
+            	}
+            	if(this.value>1){
+            		this.value=1
+            	}
                 HSLToRGB(_inputRGB[3].value, _inputRGB[4].value, _inputRGB[5].value);
                 changeColorByInputRGB();
             };
             _inputRGB[i].onchange = function() {
+            	if(this.value<0){
+            		this.value=0
+            	}
+            	if(this.value>1){
+            		this.value=1
+            	}
                 HSLToRGB(_inputRGB[3].value, _inputRGB[4].value, _inputRGB[5].value);
                 changeColorByInputRGB();
             };
@@ -257,7 +259,6 @@
                     calculate: null
                 },
                 _array = [R, G, B];
-            _colorDisplay.style.backgroundColor = 'rgb(' + R.value + ',' + G.value + ',' + B.value + ')';
             _array.sort(function(b, a) {
                 return a.value - b.value
             })
