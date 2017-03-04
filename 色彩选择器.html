@@ -17,7 +17,7 @@
         width: 100%
     }
     
-    #main {
+    #colorpicker {
         position: relative;
         width: 650px;
         height: 400px;
@@ -115,7 +115,7 @@
 </head>
 
 <body>
-    <div id='main'>
+    <div id='colorpicker'>
         <div class="canvas1">
             <div class='circle circle1'></div>
             <div class="canvas1 ver"></div>
@@ -149,45 +149,52 @@
         </div>
     </div>
     <script>
+    let colorpicker = document.getElementById('colorpicker')
     let canvas2 = document.getElementById('canvas2');
     let context2 = canvas2.getContext('2d');
     canvas2.width = 20;
     canvas2.height = 400;
 
     let gar2 = context2.createLinearGradient(0, 0, 0, 400);
-    gar2.addColorStop(0, "rgb(255,0,0)");
-    gar2.addColorStop("0.166", "rgb(255,255,0)");
-    gar2.addColorStop("0.33", "rgb(0,255,0)");
-    gar2.addColorStop("0.5", "rgb(0,255,255)");
-    gar2.addColorStop("0.67", "rgb(0,0,255)");
-    gar2.addColorStop("0.837", "rgb(255,0,255)");
-    gar2.addColorStop(1, "rgb(255,0,0)");
+    gar2.addColorStop(0, 'rgb(255,0,0)');
+    gar2.addColorStop('0.166', 'rgb(255,255,0)');
+    gar2.addColorStop('0.33', 'rgb(0,255,0)');
+    gar2.addColorStop('0.5', 'rgb(0,255,255)');
+    gar2.addColorStop('0.67', 'rgb(0,0,255)');
+    gar2.addColorStop('0.837', 'rgb(255,0,255)');
+    gar2.addColorStop(1, 'rgb(255,0,0)');
     context2.fillStyle = gar2;
     context2.fillRect(0, 0, 20, 400);
 
-    let red = 255,
-        green = 0,
-        blue = 0;
+    let _inputRGB = document.getElementsByClassName('testTxt');
+
+    let red = _inputRGB[0].value = 255,
+        green = _inputRGB[1].value = 0,
+        blue = _inputRGB[2].value = 0;
+        _inputRGB[3].value = 0;_inputRGB[4].value = 1;_inputRGB[5].value = 0.5;
+         document.getElementsByClassName('canvas1')[0].style.backgroundColor = 'rgb(255,0,0)'
+          document.getElementsByClassName('circle1')[0].style.top = - colorpicker.offsetTop - 9 + 'px';
+          document.getElementsByClassName('circle1')[0].style.left =colorpicker.offsetLeft+ 400 - 9 + 'px';
     canvas2.onclick = function(e) {
-        let c = context2.getImageData(e.clientX - 410, e.clientY, 1, 1).data;
+        let c = context2.getImageData(e.clientX - canvas2.offsetLeft, e.clientY - colorpicker.offsetTop, 1, 1).data;
         red = c[0];
         green = c[1];
         blue = c[2];
-        document.getElementsByClassName('circle2')[0].style.top = e.clientY - 9 + 'px';
+        document.getElementsByClassName('circle2')[0].style.top = e.clientY - colorpicker.offsetTop - 9 + 'px';
         document.getElementsByClassName('canvas1')[0].style.backgroundColor = 'rgb(' + red + ',' + green + ',' + blue + ')'
+        calculateColor(document.getElementsByClassName('circle1')[0].offsetLeft + 9, document.getElementsByClassName('circle1')[0].offsetTop + 9, red, green, blue)
     }
     document.getElementsByClassName('canvas1')[0].onclick = function(e) {
         let _bgcolor = document.getElementsByClassName('canvas1')[0].style.backgroundColor,
             _bgred = parseInt(_bgcolor.slice(4, -1).split(',')[0]),
             _bggreen = parseInt(_bgcolor.slice(4, -1).split(',')[1]),
             _bgblue = parseInt(_bgcolor.slice(4, -1).split(',')[2]);
-        document.getElementsByClassName('circle1')[0].style.top = e.clientY - 9 + 'px';
+        document.getElementsByClassName('circle1')[0].style.top = e.clientY - colorpicker.offsetTop - 9 + 'px';
         document.getElementsByClassName('circle1')[0].style.left = e.clientX - 9 + 'px';
-        calculateColor(e.clientX, e.clientY, _bgred, _bggreen, _bgblue)
+        calculateColor(e.clientX - colorpicker.offsetLeft, e.clientY - colorpicker.offsetTop, _bgred, _bggreen, _bgblue)
     }
 
     function calculateColor(x, y, r, g, b) {
-        let _inputRGB = document.getElementsByTagName('input');
         _inputRGB[0].value = calculateRGB(r);
         _inputRGB[1].value = calculateRGB(g);
         _inputRGB[2].value = calculateRGB(b)
@@ -201,8 +208,7 @@
     generateNewColor()
 
     function generateNewColor() {
-        let _inputRGB = document.getElementsByTagName('input'),
-            _canvas1 = document.getElementsByClassName('canvas1')[0]
+        let _canvas1 = document.getElementsByClassName('canvas1')[0]
         for (let i = 0; i < 3; i++) {
             _inputRGB[i].onkeyup = function() {
                 RGBToHSL(_inputRGB[0].value, _inputRGB[1].value, _inputRGB[2].value)
@@ -215,22 +221,22 @@
         }
         for (let i = 3; i < 6; i++) {
             _inputRGB[i].onkeyup = function() {
-            	if(this.value<0){
-            		this.value=0
-            	}
-            	if(this.value>1){
-            		this.value=1
-            	}
+                if (this.value < 0) {
+                    this.value = 0
+                }
+                if (this.value > 1) {
+                    this.value = 1
+                }
                 HSLToRGB(_inputRGB[3].value, _inputRGB[4].value, _inputRGB[5].value);
                 changeColorByInputRGB();
             };
             _inputRGB[i].onchange = function() {
-            	if(this.value<0){
-            		this.value=0
-            	}
-            	if(this.value>1){
-            		this.value=1
-            	}
+                if (this.value < 0) {
+                    this.value = 0
+                }
+                if (this.value > 1) {
+                    this.value = 1
+                }
                 HSLToRGB(_inputRGB[3].value, _inputRGB[4].value, _inputRGB[5].value);
                 changeColorByInputRGB();
             };
@@ -310,9 +316,9 @@
             }
             h /= 6;
         }
-        document.getElementsByTagName('input')[3].value = h.toFixed(2);
-        document.getElementsByTagName('input')[4].value = s.toFixed(2);
-        document.getElementsByTagName('input')[5].value = l.toFixed(2);
+        _inputRGB[3].value = h.toFixed(2);
+        _inputRGB[4].value = s.toFixed(2);
+        _inputRGB[5].value = l.toFixed(2);
     }
 
     function HSLToRGB(h, s, l) {
@@ -337,10 +343,9 @@
             _g = hue2rgb(p, q, h);
             _b = hue2rgb(p, q, h - 1 / 3);
         }
-        console.log(_r, _g, _b)
-        document.getElementsByTagName('input')[0].value = Math.round(_r * 255);
-        document.getElementsByTagName('input')[1].value = Math.round(_g * 255);
-        document.getElementsByTagName('input')[2].value = Math.round(_b * 255);
+        _inputRGB[0].value = Math.round(_r * 255);
+        _inputRGB[1].value = Math.round(_g * 255);
+        _inputRGB[2].value = Math.round(_b * 255);
     }
     </script>
 </body>
