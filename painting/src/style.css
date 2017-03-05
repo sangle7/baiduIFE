@@ -1,0 +1,651 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+li{
+    width: 120px;
+    display: inline-block;position: relative;
+}
+select{
+    position: absolute;right: 0;height: 70%;top:15%;border:1px solid #3498db;border-radius: 5px;
+}
+.labelauty {
+    display: none;
+}
+
+#toolbox {
+    width: 1000px;
+    height: 50px;
+    border: 1px solid transparent
+}
+
+canvas {
+    cursor: default;
+}
+
+#canvas {
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+#colorpicker {
+    background-color: white;
+    position: absolute;
+    display: none;
+    width: 650px;
+    height: 400px;
+    overflow: hidden;
+    -moz-box-shadow: 8px 8px 10px #333333;
+    -webkit-box-shadow: 8px 8px 10px #333333;
+    box-shadow: 8px 8px 10px #333333;
+}
+.dowebok{
+    position: relative;top: 5px;width: 100%;height: 40px;
+}
+.canvas1 {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    overflow: hidden;
+}
+
+.ver {
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+}
+
+.hiz {
+    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))
+}
+
+#canvas2 {
+    position: absolute;
+    left: 410px;
+}
+
+#control {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 400px;
+    width: 200px;
+    display: inline-block;
+}
+
+.colorpickerLabel {
+    display: block;
+    width: 100%;
+    height: 30px;
+}
+
+.testTxt {
+    float: right;
+    width: 100px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 25px;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    outline: none;
+    color: #808080;
+}
+
+.green:focus {
+    transition: border linear .2s, box-shadow linear .5s;
+    -moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+    -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+    outline: none;
+    border-color: rgba(19, 105, 172, .75);
+    box-shadow: 0 0 3px rgba(19, 105, 192, .5);
+    -moz-box-shadow: 0 0 3px rgba(241, 39, 232, .5);
+    -webkit-box-shadow: 0 0 3px rgba(19, 105, 252, 3);
+}
+
+.circle {
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    box-sizing: border-box;
+    border: 3px solid black;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle1 {
+    top: 0;
+    left: 0;
+}
+
+.circle2 {
+    top: 0;
+    left: 410px;
+}
+
+#RGBtype,
+#HSLtype {
+    margin-top: 20px;
+    width: 120px;
+}
+
+ol,
+ul {
+    list-style: none
+}
+
+blockquote,
+q {
+    quotes: none
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none
+}
+
+:focus {
+    outline: 0
+}
+
+ins {
+    text-decoration: none
+}
+
+del {
+    text-decoration: line-through
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+a {
+    text-decoration: none;
+    color: #fff
+}
+
+body {
+    font-family: "Kreon";
+    font-weight: 300;
+    color: #333
+}
+
+#switcher {
+    height: 54px;
+    background: url(bg2.png) repeat-x;
+    z-index: 99999;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: #000
+}
+
+.center {
+    width: 100%;
+    padding-top: 0
+}
+
+.center ul li {
+    display: inline;
+    float: left;
+    position: relative
+}
+
+.logoTop {
+    margin-left: 20px;
+    margin-top: 20px
+}
+
+.logoTop a:hover {
+    text-decoration: underline
+}
+
+.center ul li ul {
+    font-family: 'Droid Serif', serif;
+    display: none;
+    margin-left: 17px;
+    position: absolute;
+    width: 313px;
+    background: #10100f;
+    border: 1px solid #323024;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding-bottom: 3px
+}
+
+.center ul li ul li {
+    margin: 0 0 1px 4px;
+    padding: 5px;
+    width: 271px
+}
+
+.center ul li ul li a {
+    display: block;
+    width: 210px;
+    font-size: 13px;
+    color: #c4beab;
+    float: left;
+    line-height: 22px;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.center ul li ul li .tag {
+    display: block;
+    width: 50px;
+    height: 22px;
+    font-size: 10px;
+    color: #c4beab;
+    margin: 0 8px 0 0;
+    line-height: 22px;
+    white-space: nowrap;
+    background: url(sel-sp-act.png) no-repeat;
+    text-align: center;
+    float: left
+}
+
+.center ul li ul li a span.link {
+    display: block;
+    width: 209px;
+    height: 22px;
+    overflow: hidden;
+    float: left
+}
+
+.center ul li ul li:hover {
+    background: url(sel-act.png) no-repeat
+}
+
+.center ul li ul li:hover a {
+    color: #f8bc06
+}
+
+.center ul li ul li:hover .tag {
+    color: #f8bc06
+}
+
+.center ul li ul li:first-child {
+    margin-top: 3px
+}
+
+li.device-resolution {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #ada58b;
+    font-family: 'Cambria';
+    line-height: 54px
+}
+
+li.purchase {
+    float: right!important;
+    margin-top: 11px
+}
+
+li.purchase a {
+    padding: 0;
+    background: url(trolley2.png) no-repeat 0 0;
+    width: 133px;
+    height: 36px;
+    display: block;
+    transition: all .3s ease-out 0s
+}
+
+li.purchase a:hover {
+    background-position: 0 -36px
+}
+
+li.remove_frame {
+    margin-left: 17px;
+    float: right!important;
+    margin-right: 30px
+}
+
+li.remove_frame a {
+    background: url(cross2.png) no-repeat 0 0;
+    width: 20px;
+    height: 21px;
+    display: block;
+    margin-top: 18px;
+    transition: all .3s ease-out 0s
+}
+
+li.remove_frame a:hover {
+    background-position: 0 -21px
+}
+
+#iframe {
+    margin-top: 0
+}
+
+.icon-monitor,
+.icon-tablet,
+.icon-mobile-1,
+.icon-mobile-2,
+.icon-mobile-3 {
+    margin-right: 7px;
+    margin-top: 20px;
+    width: 17px;
+    height: 16px
+}
+
+.icon-monitor {
+    background: url(mon-spr.png) no-repeat 0 0;
+    margin-left: 10px
+}
+
+.icon-tablet {
+    background: url(mon-spr.png) no-repeat -24px 0
+}
+
+.icon-mobile-1 {
+    background: url(mon-spr.png) no-repeat -49px 0
+}
+
+.icon-monitor:hover,
+.icon-monitor.active {
+    background-position: 0 -16px
+}
+
+.icon-tablet:hover,
+.icon-tablet.active {
+    background-position: -24px -16px
+}
+
+.icon-mobile-1:hover,
+.icon-mobile-1.active {
+    background-position: -49px -16px
+}
+
+.icon-mobile-2 {
+    background: url(mon-spr.png) no-repeat -71px 0
+}
+
+.icon-mobile-3 {
+    background: url(mon-spr.png) no-repeat -94px 0
+}
+
+.icon-mobile-2:hover,
+.icon-mobile-2.active {
+    background-position: -71px -16px
+}
+
+.icon-mobile-3:hover,
+.icon-mobile-3.active {
+    background-position: -94px -16px
+}
+
+#iframe-wrap {
+    height: 100%;
+    overflow: visible;
+    position: relative;
+    top: 54px;
+    z-index: 50
+}
+
+.tablet-width {
+    height: 960px!important;
+    margin: 0 auto;
+    padding: 175px 100px 115px 100px;
+    width: 785px;
+    margin-top: 40px;
+    background: url(bg-mob.png) no-repeat 0 0
+}
+
+.tablet-width iframe {
+    height: 960px!important
+}
+
+.mobile-width {
+    height: 703px!important;
+    margin: 0 auto;
+    padding: 165px 115px 100px 100px;
+    width: 1041px;
+    margin-top: 40px;
+    background: url(bg-mob.png) no-repeat 0 -1249px
+}
+
+.mobile-width iframe {
+    height: 704px!important
+}
+
+.mobile-width-2 {
+    height: 417px!important;
+    margin: 0 auto;
+    padding: 125px 25px 159px 25px;
+    width: 337px;
+    margin-top: 40px;
+    background: url(bg-mob.png) no-repeat 0 -2217px
+}
+
+.mobile-width-2 iframe {
+    height: 416px!important
+}
+
+.mobile-width-3 {
+    height: 256px!important;
+    margin: 0 auto;
+    padding: 45px 115px 69px 105px;
+    width: 497px;
+    margin-top: 40px;
+    background: url(bg-mob.png) no-repeat -387px -2217px
+}
+
+.mobile-width-3 iframe {
+    height: 256px!important
+}
+
+.logoTop {
+    border-left: 1px solid #333;
+    padding-left: 20px;
+    border-right: 1px solid #333;
+    padding-right: 20px
+}
+
+.share {
+    margin-top: 15px;
+    margin-left: 20px
+}
+
+#ad-switcher {
+    opacity: .7;
+    background-color: #fff;
+    width: 200px;
+    position: fixed;
+    top: 140px;
+    z-index: 999;
+    border-radius: 0 0 3px;
+    right: 0;
+    border: 1px solid #e4e4e4;
+    border-left: 0;
+    border-top: 0;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .08);
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease
+}
+
+#ad-switcher h2 {
+    font-family: 微软雅黑;
+    background-color: #666;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0 0 0 20px;
+    margin: 0;
+    line-height: 35px;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease
+}
+
+#ad-switcher h2 span {
+    background-color: #666;
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    top: 0;
+    width: 35px;
+    text-decoration: none;
+    border-radius: 0 3px 3px 0;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+    cursor: pointer
+}
+/*!
+ * LABELAUTY jQuery Plugin Styles
+ *
+ * @file: jquery-labelauty.css
+ * @author: Francisco Neves (@fntneves)
+ * @site: www.francisconeves.com
+ * @license: MIT License
+ */
+
+/* Prevent text and blocks selection */
+input.labelauty + label ::selection { background-color: rgba(255, 255, 255, 0); }
+input.labelauty + label ::-moz-selection { background-color: rgba(255, 255, 255, 0); }
+
+/* Hide original checkboxes. They are ugly! */
+input.labelauty { display: none !important; }
+
+/*
+ * Let's style the input
+ * Feel free to work with it as you wish!
+ */
+input.labelauty + label
+{
+    display: table;
+    font-size: 11px;
+    padding: 10px;
+    background-color: #efefef;
+    color: #b3b3b3;
+    cursor: pointer;
+
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+
+
+    transition: background-color 0.25s;
+    -moz-transition: background-color 0.25s;
+    -webkit-transition: background-color 0.25s;
+    -o-transition: background-color 0.25s;
+
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+/* Stylish text inside label */
+
+input.labelauty + label > span.labelauty-unchecked,
+input.labelauty + label > span.labelauty-checked
+{
+    display: inline-block;
+    line-height: 16px;
+    vertical-align: bottom;
+}
+
+/* Stylish icons inside label */
+
+input.labelauty + label > span.labelauty-unchecked-image,
+input.labelauty + label > span.labelauty-checked-image
+{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: bottom;
+    background-repeat: no-repeat;
+    background-position: left center;
+
+    transition: background-image 0.5s linear;
+    -moz-transition: background-image 0.5s linear;
+    -webkit-transition: background-image 0.5s linear;
+    -o-transition: background-image 0.5s linear;
+}
+
+/* When there's a label, add a little margin to the left */
+input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked,
+input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked
+{
+    margin-left: 7px;
+}
+
+/* When not Checked */
+input.labelauty:not(:checked):not([disabled]) + label:hover
+{
+    background-color: #eaeaea;
+    color: #a7a7a7;
+}
+input.labelauty:not(:checked) + label > span.labelauty-checked-image
+{
+    display: none;
+}
+
+input.labelauty:not(:checked) + label > span.labelauty-checked
+{
+    display: none;
+}
+
+/* When Checked */
+input.labelauty:checked + label
+{
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+input.labelauty:checked:not([disabled]) + label:hover
+{
+    background-color: #72c5fd;
+}
+input.labelauty:checked + label > span.labelauty-unchecked-image
+{
+    display: none;
+}
+
+input.labelauty:checked + label > span.labelauty-unchecked
+{
+    display: none;
+}
+
+input.labelauty:checked + label > span.labelauty-checked
+{
+    display: inline-block;
+}
+
+input.labelauty.no-label:checked + label > span.labelauty-checked
+{
+    display: block;
+}
+
+/* When Disabled */
+input.labelauty[disabled] + label
+{
+    opacity: 0.5;
+}
+
+/* Add a background to (un)checked images */
+input.labelauty + label > span.labelauty-unchecked-image
+{
+    background-image: url( http://view.jqueryfuns.com/%E9%A2%84%E8%A7%88-/2015/4/21/d9d3de2720e5a9e57fffc7f7862ec782/images/input-unchecked.png );
+}
+
+input.labelauty + label > span.labelauty-checked-image
+{
+    background-image: url( http://view.jqueryfuns.com/%E9%A2%84%E8%A7%88-/2015/4/21/d9d3de2720e5a9e57fffc7f7862ec782/images/input-checked.png );
+}

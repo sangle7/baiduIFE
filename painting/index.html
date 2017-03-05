@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>模拟画布</title>
+    <link type="text/css" rel="stylesheet" href="src/style.css" />
+    <link type="text/css" rel="stylesheet" href="src/button.css" />
+</head>
+
+<body>
+    <header id='toolbox'>
+        <ul class="dowebok">
+            <li>
+                <input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen">
+                <label for="labelauty-42332">
+                <span class="labelauty-unchecked-image"></span>
+                <span class="labelauty-unchecked">画笔</span>
+                <span class="labelauty-checked-image"></span>
+                <span class="labelauty-checked">画笔</span>
+                </label>
+                <select id='penLineWidth'>
+                    <option value="2">2px</option>
+                    <option value="4">4px</option>
+                    <option value="6">6px</option>
+                    <option value="8">8px</option>
+                </select>
+            </li>
+            <li>
+                <input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen">
+                <label for="labelauty-42333">
+                <span class="labelauty-unchecked-image"></span>
+                <span class="labelauty-unchecked">刷子</span>
+                <span class="labelauty-checked-image"></span>
+                <span class="labelauty-checked">刷子</span>
+                </label>
+                <select id='brushWidth'>
+                    <option value="5">5px</option>
+                    <option value="10">10px</option>
+                    <option value="15">15px</option>
+                    <option value="20">20px</option>
+                </select>
+            </li>
+            <li>
+                <input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang">
+                <label for="labelauty-42334">
+                <span class="labelauty-unchecked-image"></span>
+                <span class="labelauty-unchecked">喷枪</span>
+                <span class="labelauty-checked-image"></span>
+                <span class="labelauty-checked">喷枪</span>
+                </label>
+                <select id='AirbrushWidth'>
+                    <option value="10">10px</option>
+                    <option value="15">15px</option>
+                    <option value="20">20px</option>
+                    <option value="30">30px</option>
+                </select>
+            </li>
+            <li>
+                <input type="radio" name="tool" class="labelauty" id="labelauty-42335" value="eraser">
+                <label for="labelauty-42335">
+                <span class="labelauty-unchecked-image"></span>
+                <span class="labelauty-unchecked">橡皮擦</span>
+                <span class="labelauty-checked-image"></span>
+                <span class="labelauty-checked">橡皮擦</span>
+                </label>
+            </li>
+            <button id='cleanAll' class="button button-glow button-rounded button-royal">清空画布</button>
+            <button id='opencolorpicker' class="button button-glow button-rounded button-caution">拾色器</button>
+        </ul>
+    </header>
+    <div id='colorpicker'>
+        <div class='canvas1'>
+            <div class='circle circle1'></div>
+            <div class='canvas1 ver'></div>
+            <div class='canvas1 hiz'></div>
+        </div>
+        <canvas id='canvas2'></canvas>
+        <div class='circle circle2'></div>
+        <div id='control'>
+            <div id='RGBtype'>
+                <label class='colorpickerLabel'>R:
+                    <input class='testTxt green' type='number' id='displayR' />
+                </label>
+                <label class='colorpickerLabel'>G:
+                    <input class='testTxt green' type='number' id='displayG' />
+                </label>
+                <label class='colorpickerLabel'>B:
+                    <input class='testTxt green' type='number' id='displayB' />
+                </label>
+            </div>
+            <div id='HSLtype'>
+                <label class='colorpickerLabel'>H:
+                    <input class='testTxt green' type='number' step='0.01' id='displayH' />
+                </label>
+                <label class='colorpickerLabel'>S:
+                    <input class='testTxt green' type='number' step='0.01' id='displayS' />
+                </label>
+                <label class='colorpickerLabel'>L:
+                    <input class='testTxt green' type='number' step='0.01' id='displayL' />
+                </label>
+            </div>
+        </div>
+    </div>
+    <canvas id='canvas'></canvas>
+    <script src="build/bundle.js"></script>
+</body>
+
+</html>
