@@ -31,6 +31,7 @@
         resize: none;
         border: 0;
         box-sizing: border-box;
+        word-wrap: break-word;
     }
     
     .textarea-left {
@@ -98,11 +99,13 @@
         font-size: 12px;
         padding: 0;
         background-color: transparent;
-        white-space: pre;
     }
     hr{
     	    margin: 10px 0 10px;
     border-top: 1px solid #ddd;
+    }
+    img{
+    	height: 20%;width: 20%;
     }
     </style>
 </head>
@@ -112,7 +115,7 @@
         <p id='collist'></p>
     </div>
     <textarea class='textarea textarea-left' id='inputtext'>
-##markdown编辑器
+![md](md.jpg)
 #这是一级标题
 ##二级标题
 ###三级标题
@@ -159,11 +162,15 @@ transIntoHTML()
             //无序列表替换
         inputText = inputText.replace(/[\*-]{1}(.*)/g, '<li>$1</li>')
             //有序列表替换
-        inputText = inputText.replace(/1\.(.*)/g, '<ol><li>$1</li>').replace(/\d\.(.*)[\r\n][^\d]/g, '<li>$1</li></ol>').replace(/\d\.(.*)/g, '<li>$1</li>')
+        inputText = inputText.replace(/1\.(.*)/g, '<ol><li>$1</li>').replace(/\d+\.(.*)[\r\n][^\d]/g, '<li>$1</li></ol>').replace(/\d\.(.*)/g, '<li>$1</li>')
             //标题替换
         inputText = inputText.replace(/[^#\r\n]#{6}([^#\r\n]*)[\r\n]/g, '<h6>$1</h6>').replace(/#{5}([^#\r\n]*)[\r\n]/g, '<h5>$1</h5>').replace(/#{4}([^#\r\n]*)[\r\n]/g, '<h4>$1</h4>').replace(/#{3}([^#\r\n]*)[\r\n]/g, '<h3>$1</h3>').replace(/#{2}([^#\r\n]*)[\r\n]/g, '<h2>$1</h2>').replace(/#{1}([^#\r\n]*)[\r\n]/g, '<h1>$1</h1>')
             //代码块替换
         inputText = inputText.replace(/`([\s\S]*)`[\r\n]/g, '<pre><code>$1</code></pre>')
+        //图片替换
+        inputText = inputText.replace(/!\[(.*)\]\((.*)\)/g, "<img src='$2'/>")
+        //链接替换
+        inputText = inputText.replace(/\[(.*)\]\((.*)\)/g, "<a href='$2'>$1</a>")
         output.innerHTML = inputText;
     }
     </script>
