@@ -1,0 +1,44 @@
+/*去除默认样式*/
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 2px;
+    /*这个属性设置使填充进度条时的图形为圆角*/
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+
+/*给滑动轨道(track)添加样式*/
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    /*将轨道设为圆角的*/
+    background: rgba(167, 167, 167, 0.2);
+}
+
+/*原始的控件获取到焦点时，会显示包裹整个控件的边框，所以还需要把边框取消。*/
+
+input[type=range]:focus {
+    outline: none;
+}
+
+
+/*给滑块(thumb)添加样式*/
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 8px;
+    width: 8px;
+    margin-top: -2px;
+    /*使滑块超出轨道部分的偏移量相等*/
+    background-color: rgb(167,167,167);
+    border-radius: 50%;
+    /*外观设置为圆形*/
+    box-shadow: 0 0 8px #ddd;
+    /*添加底部阴影*/
+}
