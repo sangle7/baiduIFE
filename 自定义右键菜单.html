@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自定义右键菜单</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+    
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+    
+    #contextmenu {
+        position: absolute;
+        width: 130px;
+        background-color: #F5F5F5;
+        cursor: pointer;
+        display: none;
+    }
+    
+    .contextmenu-list {
+        list-style: none;
+        height: 30px;
+        line-height: 30px;
+        box-sizing: border-box;
+        padding-left: 10px;
+        font-size: 8px;
+    }
+    .contextmenu-list:hover{
+    	background-color: grey;
+    }
+    </style>
+</head>
+
+<body>
+    <ul id='contextmenu'>
+        <li class="contextmenu-list">这里是第一个条目</li>
+        <li class="contextmenu-list">这里是第二个条目</li>
+        <li class="contextmenu-list">这里是第三个条目</li>
+        <li class="contextmenu-list">这里是第四个条目</li>
+        <li class="contextmenu-list">这里是第五个条目</li>
+    </ul>
+    <script>
+    window.oncontextmenu = function(e) {
+    	e.stopPropagation();
+        e.preventDefault();
+        document.getElementById('contextmenu').style.display='block';
+        document.getElementById('contextmenu').style.top = e.offsetY + 'px';
+        document.getElementById('contextmenu').style.left = e.offsetX + 'px';
+        if (e.offsetY + 150 > document.body.clientHeight) {
+            document.getElementById('contextmenu').style.top = e.offsetY - 150 + 'px';
+        }
+        if (e.offsetX + 130 > document.body.clientWidth) {
+            document.getElementById('contextmenu').style.left = e.offsetX - 130 + 'px';
+        }
+    }
+
+    window.onclick=function(){
+    	document.getElementById('contextmenu').style.display='none';
+    }
+    let menulist=document.getElementsByClassName('contextmenu-list');
+    for(let i=0;i<menulist.length;i++){
+    	menulist[i].onclick=function(e){
+    		e.stopPropagation();
+    		alert(this.innerHTML)
+    	}
+    }
+    </script>
+</body>
+
+</html>
