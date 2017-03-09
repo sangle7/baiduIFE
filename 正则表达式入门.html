@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式入门</title>
+    <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <input type="number" id='cellphoneinput'/>
+    <button>测试是否为手机号码</button>
+    <input type="text" id='stringinput'/>
+    <button>测试是否有相邻重复单词</button>
+    <script>
+    	let buttons=document.getElementsByTagName('button'),
+    	cellphoneinput=document.getElementById('cellphoneinput'),
+    	stringinput=document.getElementById('stringinput');
+    	buttons[0].onclick=function(){
+    		REtest(/^1[34578]\d{9}$/,cellphoneinput)
+    	}
+    	buttons[1].onclick=function(){
+    		let _arr=stringinput.value.split(' ');
+    		for(let i=0;i<_arr.length-1;i++){
+    			if(_arr[i]==_arr[i+1]){
+    				alert('true')
+    				return;
+    			}
+    			alert('false');
+    			break;
+    		}
+    	}
+    	function REtest(str,obj){
+    		let regex=new RegExp(str);
+    		alert( regex.test(obj.value))
+    	}
+    </script>
+</body>
+
+</html>
