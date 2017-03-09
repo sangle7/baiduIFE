@@ -186,12 +186,16 @@
         playing = playing == data.length ? 1 : playing + 1;
         clearInterval(timer)
         render(data[playing - 1])
+        document.getElementById('pauseandplay').className='fa fa-pause'
     }
     document.getElementById('pauseandplay').onclick = function(e) {
         if (audio.paused) {
             this.className = this.className.replace(/play/, 'pause');
             audio.play();
-        } else {
+        } else if (audio.ended) {
+            this.className = this.className.replace(/play/, 'pause');
+            audio.load();
+        }else{
             this.className = this.className.replace(/pause/, 'play');
             audio.pause();
         }
@@ -255,10 +259,7 @@
                 timeline.style.width = percent * 430 + 'px';
                 if (percent == 1) {
                     document.getElementById('pauseandplay').className = document.getElementById('pauseandplay').className.replace(/pause/, 'play');
-                    document.getElementById('pauseandplay').onclick = function() {
-                        audio.load();
                     }
-                }
             }, 1000)
     }
     </script>
