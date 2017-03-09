@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>MUSIC PLAYER</title>
-    <link href="range.css" type="text/css" rel="stylesheet" />
     <style>
     * {
         margin: 0;
@@ -86,7 +85,20 @@
         font-size: 10px;
         line-height: 10px;
         display: inline-block;
-        color: #A7A7A7;width: 100px;
+        color: #A7A7A7;
+        width: 100px;
+        position: relative;
+        cursor: pointer;
+    }
+    
+    #volumerange {
+        display: none;
+        cursor: pointer;
+        transition: .3s;
+        -webkit-transition: .3s;
+        /* display: none; */
+        width: 50px;
+        height: 6px;
     }
     
     #playTime {
@@ -122,18 +134,22 @@
         cursor: pointer;
     }
     
-    #volumerange {
+    .volumerange {
+        height: 2px;
         position: absolute;
-        transition: .3s;
-        -webkit-transition: .3s;
-        display: none;
+        background-color: #E1E1E1;
+        cursor: pointer;
+        /*
+        display: none;*/
         width: 50px;
-        top: 50%;
-        margin-top: -3px;
-        margin-left: 5px;
     }
-    .fa-heart{
-        color:#D70B2E;
+    
+    .fa-heart {
+        color: #D70B2E;
+    }
+    
+    .red {
+        background-color: #82C895;
     }
     </style>
 </head>
@@ -145,7 +161,10 @@
         <div id='playControl'>
             <h5 id='playTime'></h5>
             <div id='playVolume'><i class="fa fa-volume-up" aria-hidden="true"></i>
-                <input id='volumerange' type='range' name="volume" step="0.01" min="0" max="1" value="1" />
+                <div id='volumerange'>
+                    <div class='volumerange'></div>
+                    <div class='volumerange red'></div>
+                </div>
             </div>
             <div class='playLine'>
                 <div class='playLine green'></div>
@@ -239,7 +258,6 @@
     }
 
     document.getElementsByClassName('playLine')[0].onclick = function(e) {
-        console.log(e.offsetX);
         document.getElementsByClassName('green')[0].style.width = e.offsetX + 'px';
         audio.currentTime = Math.round(e.offsetX / 430 * audio.duration);
         clearInterval(timer);
@@ -250,10 +268,22 @@
     document.getElementById('playVolume').onmouseenter = function() {
         let volumeRange = document.getElementById('volumerange');
         volumeRange.style.display = 'inline-block';
-        volumeRange.onchange = function() {
-            audio.volume = volumeRange.value;
+        volumeRange.onmousedown = function() {
+            volumeRange.onmousemove = function(e) {
+                document.getElementsByClassName('red')[0].style.width = e.offsetX + 'px';
+                audio.volume=e.offsetX/50;
+            }
+            volumeRange.onmouseup = function() {
+                volumeRange.onmousemove = null;
+            }
         }
-        document.getElementById('playVolume').onmouseleave=function(){
+        volumeRange.onclick = function(e) {
+                document.getElementsByClassName('red')[0].style.width = e.offsetX + 'px';
+                audio.volume=e.offsetX/50;
+        }
+        document.getElementById('playVolume').onmouseleave = function() {
+            volumeRange.onmousemove = null;
+            volumeRange.onmousedown=null;
             volumeRange.style.display = 'none';
         }
     }
@@ -276,8 +306,8 @@
             timeline = document.getElementsByClassName('green')[0],
             timer = setInterval(function() {
                 let percent = Math.round(audio.currentTime) / Math.round(audio.duration);
-                let min = Math.floor((Math.round(audio.duration)-Math.round(audio.currentTime)) / 60);
-                let sec = Math.floor((Math.round(audio.duration)-Math.round(audio.currentTime)) % 60);
+                let min = Math.floor((Math.round(audio.duration) - Math.round(audio.currentTime)) / 60);
+                let sec = Math.floor((Math.round(audio.duration) - Math.round(audio.currentTime)) % 60);
                 if (sec / 10 < 1) {
                     sec = '0' + sec;
                 }
