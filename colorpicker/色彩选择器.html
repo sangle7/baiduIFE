@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>COLOR-PICKER</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0
+    }
+    
+    ;
+    body,
+    html {
+        height: 100%;
+        width: 100%
+    }
+    
+    #colorpicker {
+        position: relative;
+        width: 650px;
+        height: 400px;
+        overflow: hidden;
+    }
+    
+    .canvas1 {
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: red;
+        overflow: hidden;
+    }
+    
+    .ver {
+        background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+    }
+    
+    .hiz {
+        background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))
+    }
+    
+    #colorpicker_canvas2 {
+        position: absolute;
+        left: 410px;
+    }
+    
+    #control {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 400px;
+        width: 200px;
+        display: inline-block;
+    }
+    
+    label {
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+    
+    .testTxt {
+        float: right;
+        width: 100px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        height: 25px;
+        font-size: 15px;
+        border: 1px solid #cccccc;
+        outline: none;
+        color: #808080;
+    }
+    
+    .green:focus {
+        transition: border linear .2s, box-shadow linear .5s;
+        -moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+        -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+        outline: none;
+        border-color: rgba(19, 105, 172, .75);
+        box-shadow: 0 0 3px rgba(19, 105, 192, .5);
+        -moz-box-shadow: 0 0 3px rgba(241, 39, 232, .5);
+        -webkit-box-shadow: 0 0 3px rgba(19, 105, 252, 3);
+    }
+    
+    .circle {
+        height: 18px;
+        width: 18px;
+        background-color: transparent;
+        box-sizing: border-box;
+        border: 3px solid black;
+        position: absolute;
+        border-radius: 50%;
+    }
+    
+    .circle1 {
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+    
+    .circle2 {
+        top: 0;
+        left: 410px;
+    }
+    
+    #RGBtype,
+    #HSLtype {
+        margin-top: 20px;
+        width: 120px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id='colorpicker'></div>
+    <script src="build/bundle.js"></script>
+</body>
+
+</html>
