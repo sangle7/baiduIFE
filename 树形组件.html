@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>树形组件</title>
+    <style>
+    #main{
+    	cursor: pointer;
+    }
+    .hidden {
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id='main'></div>
+    <script>
+    let nodes = [{
+        name: "父节点1",
+        child: [{
+            name: "子节点1-1"
+        }, {
+            name: "子节点1-2"
+        }]
+    }, {
+        name: "父节点2",
+        child: [{
+            name: "子节点2-1",
+            child: [{
+                name: "子节点2-1-1",
+                child: [{
+                    name: "子节点2-1-1-1"
+                }]
+            },{
+                name: "子节点2-1-2",
+                child: [{
+                    name: "子节点2-1-2-1"
+                },{
+                    name: "子节点2-1-2-2"
+                }]
+            }]
+        }, {
+            name: "子节点2-2",
+            child: [{
+                name: "子节点2-2-1"
+            }]
+        }]
+    }, {
+        name: "父节点3",
+        child: [{
+            name: "子节点3-1"
+        }, {
+            name: "子节点3-2",
+            child: [{
+                name: "子节点3-2-1"
+            },{
+                name: "子节点3-2-2"
+            }]
+        }]
+    }, {
+        name: "父节点4",
+        child: [{
+            name: "子节点4-1"
+        }, {
+            name: "子节点4-2",
+            child: [{
+                name: "子节点4-2-1"
+            }]
+        }]
+    }];
+
+    document.getElementById('main').innerHTML = render(nodes);
+    document.getElementById('main').getElementsByTagName('ul')[0].style.display = 'block'
+    let trees = document.getElementsByClassName('tree');
+
+
+    function render(element) {
+        let _DOMele = [];
+        for (let i = 0; i < element.length; i++) {
+            let _xx = '<div class="tree">' + element[i].name + '</div>',
+                _yy = ''
+            if (element[i].child) {
+                _yy = render(element[i].child);
+            }
+            _DOMele.push(_xx + _yy)
+        }
+        return '<ul class="node hidden"><li>' + _DOMele.join('') + '</li></ul>';
+    }
+
+    for (let i = 0; i < trees.length; i++) {
+    	if(trees[i].nextElementSibling && trees[i].nextElementSibling.tagName == 'UL'){
+    		trees[i].style.fontWeight='700'
+    	}
+        trees[i].onclick = function() {
+            if (this.nextElementSibling && this.nextElementSibling.tagName == 'UL') {
+                let ul = this.nextElementSibling;
+                let Redeg = /hidden/;
+                if (Redeg.test(ul.className)) {
+                	this.style.fontWeight='100';
+                    ul.className = ul.className.replace(/ hidden/, '')
+                } else {
+                	this.style.fontWeight='700';
+                    ul.className += ' hidden';
+                }
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>
