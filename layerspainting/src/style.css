@@ -381,7 +381,7 @@ input.labelauty[disabled] + label {
     position: absolute;
     left: 760px;
     border-radius: 10px;
-    display: none;
+    display: none;cursor: pointer;
 }
 
 #setbackgrounddropdown li {
