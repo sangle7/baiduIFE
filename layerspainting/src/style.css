@@ -1,0 +1,367 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+li {
+    width: 120px;
+    display: inline-block;
+    position: relative;
+}
+
+select {
+    position: absolute;
+    right: 0;
+    height: 70%;
+    top: 15%;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+}
+
+.labelauty {
+    display: none;
+}
+
+#toolbox {
+    width: 1000px;
+    height: 50px;
+    border: 1px solid transparent
+}
+
+canvas {
+    cursor: default;
+}
+
+.db_canvas {
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.db_add_canvas{
+    position: absolute;
+    left: 0;
+}
+
+#colorpicker {
+    background-color: white;
+    position: absolute;
+    display: none;
+    width: 650px;
+    height: 400px;
+    overflow: hidden;
+    -moz-box-shadow: 8px 8px 10px #333333;
+    -webkit-box-shadow: 8px 8px 10px #333333;
+    box-shadow: 8px 8px 10px #333333;
+}
+
+.dowebok {
+    position: relative;
+    top: 5px;
+    width: 100%;
+    height: 40px;
+}
+
+.canvas1 {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    overflow: hidden;
+}
+
+.ver {
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+}
+
+.hiz {
+    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))
+}
+
+#colorpicker_canvas2 {
+    position: absolute;
+    left: 410px;
+}
+
+#control {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 400px;
+    width: 200px;
+    display: inline-block;
+}
+
+.colorpickerLabel {
+    display: block;
+    width: 100%;
+    height: 30px;
+}
+
+.testTxt {
+    float: right;
+    width: 100px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 25px;
+    font-size: 15px;
+    border: 1px solid #cccccc;
+    outline: none;
+    color: #808080;
+}
+
+.green:focus {
+    transition: border linear .2s, box-shadow linear .5s;
+    -moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+    -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+    outline: none;
+    border-color: rgba(19, 105, 172, .75);
+    box-shadow: 0 0 3px rgba(19, 105, 192, .5);
+    -moz-box-shadow: 0 0 3px rgba(241, 39, 232, .5);
+    -webkit-box-shadow: 0 0 3px rgba(19, 105, 252, 3);
+}
+
+.circle {
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    box-sizing: border-box;
+    border: 3px solid black;
+    position: absolute;
+    border-radius: 50%;
+    z-index: 99;
+}
+
+.circle1 {
+    top: 0;
+    left: 0;
+}
+
+.circle2 {
+    top: 0;
+    left: 410px;
+}
+
+#RGBtype,
+#HSLtype {
+    margin-top: 20px;
+    width: 120px;
+}
+
+ol,
+ul {
+    list-style: none
+}
+
+blockquote,
+q {
+    quotes: none
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none
+}
+
+:focus {
+    outline: 0
+}
+
+ins {
+    text-decoration: none
+}
+
+del {
+    text-decoration: line-through
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+a {
+    text-decoration: none;
+    color: #fff
+}
+
+body {
+    font-family: "Kreon";
+    font-weight: 300;
+    color: #333
+}
+
+
+/*!
+ * LABELAUTY jQuery Plugin Styles
+ *
+ * @file: jquery-labelauty.css
+ * @author: Francisco Neves (@fntneves)
+ * @site: www.francisconeves.com
+ * @license: MIT License
+ */
+
+
+/* Prevent text and blocks selection */
+
+input.labelauty + label::selection {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+input.labelauty + label::-moz-selection {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+/* Hide original checkboxes. They are ugly! */
+
+input.labelauty {
+    display: none !important;
+}
+
+
+/*
+ * Let's style the input
+ * Feel free to work with it as you wish!
+ */
+
+input.labelauty + label {
+    display: table;
+    font-size: 11px;
+    padding: 10px;
+    background-color: #efefef;
+    color: #b3b3b3;
+    cursor: pointer;
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    transition: background-color 0.25s;
+    -moz-transition: background-color 0.25s;
+    -webkit-transition: background-color 0.25s;
+    -o-transition: background-color 0.25s;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+
+/* Stylish text inside label */
+
+input.labelauty + label > span.labelauty-unchecked,
+input.labelauty + label > span.labelauty-checked {
+    display: inline-block;
+    line-height: 16px;
+    vertical-align: bottom;
+}
+
+
+/* Stylish icons inside label */
+
+input.labelauty + label > span.labelauty-unchecked-image,
+input.labelauty + label > span.labelauty-checked-image {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: bottom;
+    background-repeat: no-repeat;
+    background-position: left center;
+    transition: background-image 0.5s linear;
+    -moz-transition: background-image 0.5s linear;
+    -webkit-transition: background-image 0.5s linear;
+    -o-transition: background-image 0.5s linear;
+}
+
+
+/* When there's a label, add a little margin to the left */
+
+input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked,
+input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
+    margin-left: 7px;
+}
+
+
+/* When not Checked */
+
+input.labelauty:not(:checked):not([disabled]) + label:hover {
+    background-color: #eaeaea;
+    color: #a7a7a7;
+}
+
+input.labelauty:not(:checked) + label > span.labelauty-checked-image {
+    display: none;
+}
+
+input.labelauty:not(:checked) + label > span.labelauty-checked {
+    display: none;
+}
+
+
+/* When Checked */
+
+input.labelauty:checked + label {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+input.labelauty:checked:not([disabled]) + label:hover {
+    background-color: #72c5fd;
+}
+
+input.labelauty:checked + label > span.labelauty-unchecked-image {
+    display: none;
+}
+
+input.labelauty:checked + label > span.labelauty-unchecked {
+    display: none;
+}
+
+input.labelauty:checked + label > span.labelauty-checked {
+    display: inline-block;
+}
+
+input.labelauty.no-label:checked + label > span.labelauty-checked {
+    display: block;
+}
+
+
+/* When Disabled */
+
+input.labelauty[disabled] + label {
+    opacity: 0.5;
+}
+
+#layersOption {
+    height: auto;
+    width: 200px;
+    position: absolute;
+    right: 50px;
+    bottom: 0;
+}
+
+#layersOption li {
+    line-height: 50px;
+    text-align: right;
+    height: 50px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #9E9C9E;
+    background-color: #F1EFF1;padding-right: 10px;padding-left: 10px;cursor:pointer;
+}
+#layersOption li span{
+    float: left;
+    line-height: 50px;
+    letter-spacing: 10px;
+    color: grey;
+}
