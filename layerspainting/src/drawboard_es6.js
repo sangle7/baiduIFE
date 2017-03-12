@@ -15,7 +15,7 @@ export class Drawboard {
 	}
 
 	initDOM() {
-		const str = '<header id="toolbox"><ul class="dowebok"> <li><input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen"><label for="labelauty-42332"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">画笔</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">画笔</span></label><select id="penLineWidth"><option value="2">2px</option><option value="4">4px</option><option value="6">6px</option><option value="8">8px</option></select></li><li><input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen"><label for="labelauty-42333"> <span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">刷子</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">刷子</span></label><select id="brushWidth"><option value="5">5px</option><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option></select></li><li><input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang"><label for="labelauty-42334"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">喷枪</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">喷枪</span></label><select id="AirbrushWidth"><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option><option value="30">30px</option></select> </li><div class="btn-group" style="position: absolute;bottom: 0;"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="setbackground">设置背景<span class="caret"></span></button><ul class="dropdown-menu" id="setbackgrounddropdown"> <li><a href="#">white</a></li><li><a href="#">black</a></li><li><a href="#">transparent</a></li><li><a href="#">拾色器前景色</a></li></ul></div><button id="opencolorpicker" class="button button-glow button-rounded button-caution">拾色器</button></ul></header><div id="colorpicker"></div><canvas class="db_canvas" id="canvas"></canvas><canvas class="db_canvas db_add_canvas" id="canvas-bg" height="500" width="1000" style="z-index:-999"></canvas><ul id="layersOption"></ul>'
+		const str = '<header id="toolbox"><ul class="dowebok"> <li><input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen"><label for="labelauty-42332"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">画笔</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">画笔</span></label><select id="penLineWidth"><option value="2">2px</option><option value="4">4px</option><option value="6">6px</option><option value="8">8px</option></select></li><li><input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen"><label for="labelauty-42333"> <span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">刷子</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">刷子</span></label><select id="brushWidth"><option value="5">5px</option><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option></select></li><li><input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang"><label for="labelauty-42334"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">喷枪</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">喷枪</span></label><select id="AirbrushWidth"><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option><option value="30">30px</option></select> </li><div class="btn-group" style="position: absolute;bottom: 0;"></div><button id="opencolorpicker" class="button button-glow button-rounded button-caution">拾色器</button><button type="button" id="setbackground" class="button button-glow button-rounded button-highlight">设置背景</button><ul class="dropdown-menu" id="setbackgrounddropdown"> <li><a>white</a></li><li><a>black</a></li><li><a>transparent</a></li><li><a>拾色器前景色</a></li></ul></ul></header><div id="colorpicker"></div><canvas class="db_canvas" id="canvas"></canvas><canvas class="db_canvas db_add_canvas" id="canvas-bg" height="500" width="1000" style="z-index:-999"></canvas><ul id="layersOption"></ul>'
 		document.getElementById('main').innerHTML = str;
 	}
 
@@ -39,14 +39,19 @@ export class Drawboard {
 		}
 
 		document.getElementById('setbackground').onclick = (e) => {
+			e.stopPropagation();
+			document.getElementById('setbackgrounddropdown').style.display = 'block';
 			let bgcllist = document.getElementById('setbackgrounddropdown').getElementsByTagName('a');
 
-			// debugger;
 			for (let i = 0; i < bgcllist.length; i++) {
 				bgcllist[i].onclick = (e) => {
-					console.log(bgcllist[i].innerHTML)
+					e.stopPropagation();
 					this.changeBgColor(bgcllist[i].innerHTML)
 				}
+			}
+
+			document.getElementsByTagName('body')[0].onclick = (e) => {
+				document.getElementById('setbackgrounddropdown').style.display = 'none';
 			}
 		}
 
@@ -57,7 +62,7 @@ export class Drawboard {
 		let _context = _new.getContext('2d');
 
 		_context.clearRect(0, 0, 1000, 500);
-		if (colorname == '取色器前景色') {
+		if (colorname == '拾色器前景色') {
 			_context.fillStyle = this.newcolorpicker.color;
 			_context.fillRect(0, 0, 1000, 500)
 		} else if (colorname == 'transparent') {
@@ -248,15 +253,15 @@ export class Drawboard {
 	}
 
 	render(dom) {
-		let str = '<li><span class="glyphicon glyphicon-remove"></span> <span class="glyphicon glyphicon-eye glyphicon-eye-open"></span>' + dom.id + '</li>'
+		let str = '<li><i class="fa fa-times" aria-hidden="true"></i> <i class="fa fa-eye showornot" aria-hidden="true"></i>' + dom.id + '</li>'
 		document.getElementById('layersOption').innerHTML = str + document.getElementById('layersOption').innerHTML;
 		this.initlayersOp();
 	}
 
 	initlayersOp() {
 		let _canvaslayers = document.getElementsByClassName('db_add_canvas');
-		let _layersDel = document.getElementById('layersOption').getElementsByClassName('glyphicon-remove');
-		let _layersEye = document.getElementById('layersOption').getElementsByClassName('glyphicon-eye');
+		let _layersDel = document.getElementById('layersOption').getElementsByClassName('fa-times');
+		let _layersEye = document.getElementById('layersOption').getElementsByClassName('showornot');
 		let _layers = document.getElementById('layersOption').getElementsByTagName('li')
 		for (let i = 0; i < _layersDel.length; i++) {
 			_layersDel[i].onclick = (e) => {
@@ -267,12 +272,12 @@ export class Drawboard {
 		}
 		for (let i = 0; i < _layersEye.length; i++) {
 			_layersEye[i].onclick = (e) => {
-				if (/open/.test(_layersEye[i].className)) {
-					_layersEye[i].className = _layersEye[i].className.replace(/open/, 'close');
-					_canvaslayers[_canvaslayers.length - i - 1].style.display = 'none'
-				} else {
-					_layersEye[i].className = _layersEye[i].className.replace(/close/, 'open')
+				if (/eye-slash/.test(_layersEye[i].className)) {
+					_layersEye[i].className = _layersEye[i].className.replace(/eye-slash/, 'eye')
 					_canvaslayers[_canvaslayers.length - i - 1].style.display = 'initial'
+				} else {
+					_layersEye[i].className = _layersEye[i].className.replace(/eye/, 'eye-slash')
+					_canvaslayers[_canvaslayers.length - i - 1].style.display = 'none'
 				}
 			}
 		}
