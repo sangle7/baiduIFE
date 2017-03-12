@@ -3271,7 +3271,7 @@ var Drawboard = exports.Drawboard = function () {
 	_createClass(Drawboard, [{
 		key: 'initDOM',
 		value: function initDOM() {
-			var str = '<header id="toolbox"><ul class="dowebok"> <li><input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen"><label for="labelauty-42332"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">画笔</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">画笔</span></label><select id="penLineWidth"><option value="2">2px</option><option value="4">4px</option><option value="6">6px</option><option value="8">8px</option></select></li><li><input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen"><label for="labelauty-42333"> <span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">刷子</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">刷子</span></label><select id="brushWidth"><option value="5">5px</option><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option></select></li><li><input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang"><label for="labelauty-42334"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">喷枪</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">喷枪</span></label><select id="AirbrushWidth"><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option><option value="30">30px</option></select> </li><div class="btn-group" style="position: absolute;bottom: 0;"></div><button id="opencolorpicker" class="button button-glow button-rounded button-caution">拾色器</button><button type="button" id="setbackground" class="button button-glow button-rounded button-highlight">设置背景</button><ul class="dropdown-menu" id="setbackgrounddropdown"> <li><a>white</a></li><li><a>black</a></li><li><a>transparent</a></li><li><a>拾色器前景色</a></li></ul></ul></header><div id="colorpicker"></div><canvas class="db_canvas" id="canvas"></canvas><canvas class="db_canvas db_add_canvas" id="canvas-bg" height="500" width="1000" style="z-index:-999"></canvas><ul id="layersOption"></ul>';
+			var str = '<header id="toolbox"><ul class="dowebok"> <li><input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen"><label for="labelauty-42332"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">画笔</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">画笔</span></label><select id="penLineWidth"><option value="2">2px</option><option value="4">4px</option><option value="6">6px</option><option value="8">8px</option></select></li><li><input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen"><label for="labelauty-42333"> <span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">刷子</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">刷子</span></label><select id="brushWidth"><option value="5">5px</option><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option></select></li><li><input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang"><label for="labelauty-42334"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">喷枪</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">喷枪</span></label><select id="AirbrushWidth"><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option><option value="30">30px</option></select> </li><div class="btn-group" style="position: absolute;bottom: 0;"></div><button id="opencolorpicker" class="button button-glow button-rounded button-caution">拾色器</button><button type="button" id="setbackground" class="button button-glow button-rounded button-highlight">设置背景</button><ul class="dropdown-menu" id="setbackgrounddropdown"> <li>white</li><li>black</li><li>transparent</li><li>拾色器前景色</li></ul></ul></header><div id="colorpicker"></div><canvas class="db_canvas" id="canvas"></canvas><canvas class="db_canvas" id="canvas-bg" height="500" width="1000" style="z-index:-999"></canvas><ul id="layersOption"></ul>';
 			document.getElementById('main').innerHTML = str;
 		}
 	}, {
@@ -3305,22 +3305,19 @@ var Drawboard = exports.Drawboard = function () {
 			document.getElementById('setbackground').onclick = function (e) {
 				e.stopPropagation();
 				document.getElementById('setbackgrounddropdown').style.display = 'block';
-				var bgcllist = document.getElementById('setbackgrounddropdown').getElementsByTagName('a');
+				var bgcllist = document.getElementById('setbackgrounddropdown').getElementsByTagName('li');
 
 				var _loop2 = function _loop2(i) {
 					bgcllist[i].onclick = function (e) {
 						e.stopPropagation();
 						_this.changeBgColor(bgcllist[i].innerHTML);
+						document.getElementById('setbackgrounddropdown').style.display = 'none';
 					};
 				};
 
 				for (var i = 0; i < bgcllist.length; i++) {
 					_loop2(i);
 				}
-
-				document.getElementsByTagName('body')[0].onclick = function (e) {
-					document.getElementById('setbackgrounddropdown').style.display = 'none';
-				};
 			};
 		}
 	}, {
@@ -3369,11 +3366,11 @@ var Drawboard = exports.Drawboard = function () {
 
 				var _new = document.createElement('canvas');
 				_new.className = "db_canvas db_add_canvas";
-				_new.setAttribute('id', '图层 ' + _this2.layer);
+				_new.setAttribute('id', ' 图层-' + _this2.layer);
 				document.getElementById('main').appendChild(_new);
 				_new.width = 1000;
 				_new.height = 500;
-				_new.style.zIndex = -1;
+				_new.style.zIndex = -500 + _this2.layer;
 				var _context = _new.getContext('2d');
 
 				_this2.layer++;
@@ -3399,7 +3396,7 @@ var Drawboard = exports.Drawboard = function () {
 						_this2.layer--;
 					}
 					_this2.canvas.onmousemove = null;
-					_this2.render(_new);
+					_this2.render();
 				};
 			};
 		}
@@ -3426,11 +3423,11 @@ var Drawboard = exports.Drawboard = function () {
 
 				var _new = document.createElement('canvas');
 				_new.className = "db_canvas db_add_canvas";
-				_new.setAttribute('id', '图层 ' + _this3.layer);
+				_new.setAttribute('id', ' 图层-' + _this3.layer);
 				document.getElementById('main').appendChild(_new);
 				_new.width = 1000;
 				_new.height = 500;
-				_new.style.zIndex = -1;
+				_new.style.zIndex = -500 + _this3.layer;
 				var _context = _new.getContext('2d');
 
 				_this3.layer++;
@@ -3456,7 +3453,7 @@ var Drawboard = exports.Drawboard = function () {
 						_this3.layer--;
 					}
 					_this3.canvas.onmousemove = null;
-					_this3.render(_new);
+					_this3.render();
 				};
 			};
 		}
@@ -3483,11 +3480,11 @@ var Drawboard = exports.Drawboard = function () {
 
 				var _new = document.createElement('canvas');
 				_new.className = "db_canvas db_add_canvas";
-				_new.setAttribute('id', '图层 ' + _this4.layer);
+				_new.setAttribute('id', ' 图层-' + _this4.layer);
 				document.getElementById('main').appendChild(_new);
 				_new.width = 1000;
 				_new.height = 500;
-				_new.style.zIndex = -1;
+				_new.style.zIndex = -500 + _this4.layer;
 				var _context = _new.getContext('2d');
 
 				_this4.layer++;
@@ -3508,7 +3505,7 @@ var Drawboard = exports.Drawboard = function () {
 				_this4.canvas.onmouseup = function (e) {
 					_this4.canvas.onmousemove = null;
 					window.clearInterval(timer);
-					_this4.render(_new);
+					_this4.render();
 				};
 			};
 		}
@@ -3529,9 +3526,22 @@ var Drawboard = exports.Drawboard = function () {
 		}
 	}, {
 		key: 'render',
-		value: function render(dom) {
-			var str = '<li><i class="fa fa-times" aria-hidden="true"></i> <i class="fa fa-eye showornot" aria-hidden="true"></i>' + dom.id + '</li>';
-			document.getElementById('layersOption').innerHTML = str + document.getElementById('layersOption').innerHTML;
+		value: function render() {
+			var _canvaslayers = document.getElementsByClassName('db_add_canvas');
+			var layersObj = [];
+			for (var i = 0; i < _canvaslayers.length; i++) {
+				layersObj.push({
+					id: _canvaslayers[i].id,
+					zindex: parseInt(_canvaslayers[i].style.zIndex)
+				});
+			}
+			layersObj.sort(function (a, b) {
+				return b.zindex - a.zindex;
+			});
+			var str = layersObj.map(function (elem) {
+				return '<li><i class="fa fa-times" aria-hidden="true"></i> <i class="fa fa-eye showornot" aria-hidden="true"></i>' + elem.id + ' <span><i class="fa fa-caret-up" aria-hidden="true"></i></span> </li>';
+			});
+			document.getElementById('layersOption').innerHTML = str.join('');
 			this.initlayersOp();
 		}
 	}, {
@@ -3543,12 +3553,13 @@ var Drawboard = exports.Drawboard = function () {
 			var _layersDel = document.getElementById('layersOption').getElementsByClassName('fa-times');
 			var _layersEye = document.getElementById('layersOption').getElementsByClassName('showornot');
 			var _layers = document.getElementById('layersOption').getElementsByTagName('li');
+			var upcarets = document.getElementById('layersOption').getElementsByClassName('fa-caret-up');
 
 			var _loop3 = function _loop3(i) {
 				_layersDel[i].onclick = function (e) {
 					document.getElementById('layersOption').removeChild(_layers[i]);
 					document.getElementById('main').removeChild(_canvaslayers[_canvaslayers.length - i - 1]);
-					_this5.initlayersOp();
+					_this5.render();
 				};
 			};
 
@@ -3570,6 +3581,19 @@ var Drawboard = exports.Drawboard = function () {
 
 			for (var i = 0; i < _layersEye.length; i++) {
 				_loop4(i);
+			}
+
+			var _loop5 = function _loop5(i) {
+				upcarets[i].onclick = function (e) {
+					var x = _layers[i].innerHTML.split(" ");
+					var _id = document.getElementById(' ' + x[9]);
+					_id.style.zIndex = parseInt(_id.style.zIndex) + 1;
+					_this5.render();
+				};
+			};
+
+			for (var i = 0; i < upcarets.length; i++) {
+				_loop5(i);
 			}
 		}
 	}]);
@@ -3600,7 +3624,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "* {\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\nli {\r\n    width: 120px;\r\n    display: inline-block;\r\n    position: relative;\r\n}\r\n\r\nselect {\r\n    position: absolute;\r\n    right: 0;\r\n    height: 70%;\r\n    top: 15%;\r\n    border: 1px solid #3498db;\r\n    border-radius: 5px;\r\n}\r\n\r\n.labelauty {\r\n    display: none;\r\n}\r\n\r\n#toolbox {\r\n    width: 1000px;\r\n    height: 50px;\r\n    border: 1px solid transparent\r\n}\r\n\r\ncanvas {\r\n    cursor: default;\r\n}\r\n\r\n.db_canvas {\r\n    border: 1px solid black;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.db_add_canvas {\r\n    position: absolute;\r\n    left: 0;\r\n}\r\n\r\n#colorpicker {\r\n    background-color: white;\r\n    position: absolute;\r\n    display: none;\r\n    width: 650px;\r\n    height: 400px;\r\n    overflow: hidden;\r\n    -moz-box-shadow: 8px 8px 10px #333333;\r\n    -webkit-box-shadow: 8px 8px 10px #333333;\r\n    box-shadow: 8px 8px 10px #333333;\r\n}\r\n\r\n.dowebok {\r\n    position: relative;\r\n    top: 5px;\r\n    width: 100%;\r\n    height: 40px;\r\n}\r\n\r\n.canvas1 {\r\n    width: 400px;\r\n    height: 400px;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: red;\r\n    overflow: hidden;\r\n}\r\n\r\n.ver {\r\n    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));\r\n}\r\n\r\n.hiz {\r\n    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))\r\n}\r\n\r\n#colorpicker_canvas2 {\r\n    position: absolute;\r\n    left: 410px;\r\n}\r\n\r\n#control {\r\n    position: absolute;\r\n    right: 0;\r\n    top: 0;\r\n    height: 400px;\r\n    width: 200px;\r\n    display: inline-block;\r\n}\r\n\r\n.colorpickerLabel {\r\n    display: block;\r\n    width: 100%;\r\n    height: 30px;\r\n}\r\n\r\n.testTxt {\r\n    float: right;\r\n    width: 100px;\r\n    -webkit-border-radius: 3px;\r\n    -moz-border-radius: 3px;\r\n    border-radius: 3px;\r\n    height: 25px;\r\n    font-size: 15px;\r\n    border: 1px solid #cccccc;\r\n    outline: none;\r\n    color: #808080;\r\n}\r\n\r\n.green:focus {\r\n    transition: border linear .2s, box-shadow linear .5s;\r\n    -moz-transition: border linear .2s, -moz-box-shadow linear .5s;\r\n    -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;\r\n    outline: none;\r\n    border-color: rgba(19, 105, 172, .75);\r\n    box-shadow: 0 0 3px rgba(19, 105, 192, .5);\r\n    -moz-box-shadow: 0 0 3px rgba(241, 39, 232, .5);\r\n    -webkit-box-shadow: 0 0 3px rgba(19, 105, 252, 3);\r\n}\r\n\r\n.circle {\r\n    height: 18px;\r\n    width: 18px;\r\n    background-color: transparent;\r\n    box-sizing: border-box;\r\n    border: 3px solid black;\r\n    position: absolute;\r\n    border-radius: 50%;\r\n    z-index: 99;\r\n}\r\n\r\n.circle1 {\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.circle2 {\r\n    top: 0;\r\n    left: 410px;\r\n}\r\n\r\n#RGBtype,\r\n#HSLtype {\r\n    margin-top: 20px;\r\n    width: 120px;\r\n}\r\n\r\nol,\r\nul {\r\n    list-style: none\r\n}\r\n\r\nblockquote,\r\nq {\r\n    quotes: none\r\n}\r\n\r\nblockquote:before,\r\nblockquote:after,\r\nq:before,\r\nq:after {\r\n    content: '';\r\n    content: none\r\n}\r\n\r\n:focus {\r\n    outline: 0\r\n}\r\n\r\nins {\r\n    text-decoration: none\r\n}\r\n\r\ndel {\r\n    text-decoration: line-through\r\n}\r\n\r\ntable {\r\n    border-collapse: collapse;\r\n    border-spacing: 0\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color: #fff\r\n}\r\n\r\nbody {\r\n    font-family: \"Kreon\";\r\n    font-weight: 300;\r\n    color: #333\r\n}\r\n\r\n\r\n/*!\r\n * LABELAUTY jQuery Plugin Styles\r\n *\r\n * @file: jquery-labelauty.css\r\n * @author: Francisco Neves (@fntneves)\r\n * @site: www.francisconeves.com\r\n * @license: MIT License\r\n */\r\n\r\n\r\n/* Prevent text and blocks selection */\r\n\r\ninput.labelauty + label::selection {\r\n    background-color: rgba(255, 255, 255, 0);\r\n}\r\n\r\ninput.labelauty + label::-moz-selection {\r\n    background-color: rgba(255, 255, 255, 0);\r\n}\r\n\r\n\r\n/* Hide original checkboxes. They are ugly! */\r\n\r\ninput.labelauty {\r\n    display: none !important;\r\n}\r\n\r\n\r\n/*\r\n * Let's style the input\r\n * Feel free to work with it as you wish!\r\n */\r\n\r\ninput.labelauty + label {\r\n    display: table;\r\n    font-size: 11px;\r\n    padding: 10px;\r\n    background-color: #efefef;\r\n    color: #b3b3b3;\r\n    cursor: pointer;\r\n    border-radius: 3px 3px 3px 3px;\r\n    -moz-border-radius: 3px 3px 3px 3px;\r\n    -webkit-border-radius: 3px 3px 3px 3px;\r\n    transition: background-color 0.25s;\r\n    -moz-transition: background-color 0.25s;\r\n    -webkit-transition: background-color 0.25s;\r\n    -o-transition: background-color 0.25s;\r\n    -moz-user-select: none;\r\n    -khtml-user-select: none;\r\n    -webkit-user-select: none;\r\n    -o-user-select: none;\r\n}\r\n\r\n\r\n/* Stylish text inside label */\r\n\r\ninput.labelauty + label > span.labelauty-unchecked,\r\ninput.labelauty + label > span.labelauty-checked {\r\n    display: inline-block;\r\n    line-height: 16px;\r\n    vertical-align: bottom;\r\n}\r\n\r\n\r\n/* Stylish icons inside label */\r\n\r\ninput.labelauty + label > span.labelauty-unchecked-image,\r\ninput.labelauty + label > span.labelauty-checked-image {\r\n    display: inline-block;\r\n    width: 16px;\r\n    height: 16px;\r\n    vertical-align: bottom;\r\n    background-repeat: no-repeat;\r\n    background-position: left center;\r\n    transition: background-image 0.5s linear;\r\n    -moz-transition: background-image 0.5s linear;\r\n    -webkit-transition: background-image 0.5s linear;\r\n    -o-transition: background-image 0.5s linear;\r\n}\r\n\r\n\r\n/* When there's a label, add a little margin to the left */\r\n\r\ninput.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked,\r\ninput.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {\r\n    margin-left: 7px;\r\n}\r\n\r\n\r\n/* When not Checked */\r\n\r\ninput.labelauty:not(:checked):not([disabled]) + label:hover {\r\n    background-color: #eaeaea;\r\n    color: #a7a7a7;\r\n}\r\n\r\ninput.labelauty:not(:checked) + label > span.labelauty-checked-image {\r\n    display: none;\r\n}\r\n\r\ninput.labelauty:not(:checked) + label > span.labelauty-checked {\r\n    display: none;\r\n}\r\n\r\n\r\n/* When Checked */\r\n\r\ninput.labelauty:checked + label {\r\n    background-color: #3498db;\r\n    color: #ffffff;\r\n}\r\n\r\ninput.labelauty:checked:not([disabled]) + label:hover {\r\n    background-color: #72c5fd;\r\n}\r\n\r\ninput.labelauty:checked + label > span.labelauty-unchecked-image {\r\n    display: none;\r\n}\r\n\r\ninput.labelauty:checked + label > span.labelauty-unchecked {\r\n    display: none;\r\n}\r\n\r\ninput.labelauty:checked + label > span.labelauty-checked {\r\n    display: inline-block;\r\n}\r\n\r\ninput.labelauty.no-label:checked + label > span.labelauty-checked {\r\n    display: block;\r\n}\r\n\r\n\r\n/* When Disabled */\r\n\r\ninput.labelauty[disabled] + label {\r\n    opacity: 0.5;\r\n}\r\n\r\n#layersOption {\r\n    height: auto;\r\n    width: 200px;\r\n    position: absolute;\r\n    right: 50px;\r\n    bottom: 0;\r\n}\r\n\r\n#layersOption li {\r\n    line-height: 50px;\r\n    text-align: right;\r\n    height: 50px;\r\n    width: 100%;\r\n    box-sizing: border-box;\r\n    border: 1px solid #9E9C9E;\r\n    background-color: #F1EFF1;\r\n    padding-right: 10px;\r\n    padding-left: 10px;\r\n    cursor: pointer;\r\n}\r\n\r\n#layersOption li i {\r\n    float: left;\r\n    line-height: 50px;\r\n    letter-spacing: 10px;\r\n    color: grey;\r\n}\r\n\r\n#setbackgrounddropdown {\r\n    z-index: 1000;\r\n    height: 200px;\r\n    background: white;\r\n    width: 150px;\r\n    border: 1px solid grey;\r\n    color: grey;\r\n    display: block;\r\n    position: absolute;\r\n    left: 760px;\r\n    border-radius: 10px;\r\n    display: none;cursor: pointer;\r\n}\r\n\r\n#setbackgrounddropdown li {\r\n    color: grey;\r\n    height: 50px;\r\n    line-height: 50px;\r\n    box-sizing: border-box;\r\n    padding-left: 20px;\r\n}\r\n\r\n#setbackgrounddropdown li a {\r\n    color: grey;\r\n    font-weight: 30px\r\n}\r\n", ""]);
+exports.push([module.i, "* {\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\nli {\r\n    width: 120px;\r\n    display: inline-block;\r\n    position: relative;\r\n}\r\n\r\nselect {\r\n    position: absolute;\r\n    right: 0;\r\n    height: 70%;\r\n    top: 15%;\r\n    border: 1px solid #3498db;\r\n    border-radius: 5px;\r\n}\r\n\r\n.labelauty {\r\n    display: none;\r\n}\r\n\r\n#toolbox {\r\n    width: 1000px;\r\n    height: 50px;\r\n    border: 1px solid transparent\r\n}\r\n\r\ncanvas {\r\n    cursor: default;\r\n}\r\n\r\n.db_canvas {\r\n    border: 1px solid black;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.db_add_canvas,#canvas-bg{\r\n    position: absolute;\r\n    left: 0;\r\n}\r\n\r\n#colorpicker {\r\n    background-color: white;\r\n    position: absolute;\r\n    display: none;\r\n    width: 650px;\r\n    height: 400px;\r\n    overflow: hidden;\r\n    -moz-box-shadow: 8px 8px 10px #333333;\r\n    -webkit-box-shadow: 8px 8px 10px #333333;\r\n    box-shadow: 8px 8px 10px #333333;\r\n}\r\n\r\n.dowebok {\r\n    position: relative;\r\n    top: 5px;\r\n    width: 100%;\r\n    height: 40px;\r\n}\r\n\r\n.canvas1 {\r\n    width: 400px;\r\n    height: 400px;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: red;\r\n    overflow: hidden;\r\n}\r\n\r\n.ver {\r\n    background: linear-gradient(to right, rgb(255, 255, 255), rgba(255, 255, 255, 0));\r\n}\r\n\r\n.hiz {\r\n    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))\r\n}\r\n\r\n#colorpicker_canvas2 {\r\n    position: absolute;\r\n    left: 410px;\r\n}\r\n\r\n#control {\r\n    position: absolute;\r\n    right: 0;\r\n    top: 0;\r\n    height: 400px;\r\n    width: 200px;\r\n    display: inline-block;\r\n}\r\n\r\n.colorpickerLabel {\r\n    display: block;\r\n    width: 100%;\r\n    height: 30px;\r\n}\r\n\r\n.testTxt {\r\n    float: right;\r\n    width: 100px;\r\n    -webkit-border-radius: 3px;\r\n    -moz-border-radius: 3px;\r\n    border-radius: 3px;\r\n    height: 25px;\r\n    font-size: 15px;\r\n    border: 1px solid #cccccc;\r\n    outline: none;\r\n    color: #808080;\r\n}\r\n\r\n.green:focus {\r\n    transition: border linear .2s, box-shadow linear .5s;\r\n    -moz-transition: border linear .2s, -moz-box-shadow linear .5s;\r\n    -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;\r\n    outline: none;\r\n    border-color: rgba(19, 105, 172, .75);\r\n    box-shadow: 0 0 3px rgba(19, 105, 192, .5);\r\n    -moz-box-shadow: 0 0 3px rgba(241, 39, 232, .5);\r\n    -webkit-box-shadow: 0 0 3px rgba(19, 105, 252, 3);\r\n}\r\n\r\n.circle {\r\n    height: 18px;\r\n    width: 18px;\r\n    background-color: transparent;\r\n    box-sizing: border-box;\r\n    border: 3px solid black;\r\n    position: absolute;\r\n    border-radius: 50%;\r\n    z-index: 99;\r\n}\r\n\r\n.circle1 {\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.circle2 {\r\n    top: 0;\r\n    left: 410px;\r\n}\r\n\r\n#RGBtype,\r\n#HSLtype {\r\n    margin-top: 20px;\r\n    width: 120px;\r\n}\r\n\r\nol,\r\nul {\r\n    list-style: none\r\n}\r\n\r\nblockquote,\r\nq {\r\n    quotes: none\r\n}\r\n\r\nblockquote:before,\r\nblockquote:after,\r\nq:before,\r\nq:after {\r\n    content: '';\r\n    content: none\r\n}\r\n\r\n:focus {\r\n    outline: 0\r\n}\r\n\r\nins {\r\n    text-decoration: none\r\n}\r\n\r\ndel {\r\n    text-decoration: line-through\r\n}\r\n\r\ntable {\r\n    border-collapse: collapse;\r\n    border-spacing: 0\r\n}\r\n\r\na {\r\n    text-decoration: none;\r\n    color: #fff\r\n}\r\n\r\nbody {\r\n    font-family: \"Kreon\";\r\n    font-weight: 300;\r\n    color: #333\r\n}\r\n\r\n\r\n/*!\r\n * LABELAUTY jQuery Plugin Styles\r\n *\r\n * @file: jquery-labelauty.css\r\n * @author: Francisco Neves (@fntneves)\r\n * @site: www.francisconeves.com\r\n * @license: MIT License\r\n */\r\n\r\n\r\n/* Prevent text and blocks selection */\r\n\r\ninput.labelauty + label::selection {\r\n    background-color: rgba(255, 255, 255, 0);\r\n}\r\n\r\ninput.labelauty + label::-moz-selection {\r\n    background-color: rgba(255, 255, 255, 0);\r\n}\r\n\r\n\r\n/* Hide original checkboxes. They are ugly! */\r\n\r\ninput.labelauty {\r\n    display: none !important;\r\n}\r\n\r\n\r\n/*\r\n * Let's style the input\r\n * Feel free to work with it as you wish!\r\n */\r\n\r\ninput.labelauty + label {\r\n    display: table;\r\n    font-size: 11px;\r\n    padding: 10px;\r\n    background-color: #efefef;\r\n    color: #b3b3b3;\r\n    cursor: pointer;\r\n    border-radius: 3px 3px 3px 3px;\r\n    -moz-border-radius: 3px 3px 3px 3px;\r\n    -webkit-border-radius: 3px 3px 3px 3px;\r\n    transition: background-color 0.25s;\r\n    -moz-transition: background-color 0.25s;\r\n    -webkit-transition: background-color 0.25s;\r\n    -o-transition: background-color 0.25s;\r\n    -moz-user-select: none;\r\n    -khtml-user-select: none;\r\n    -webkit-user-select: none;\r\n    -o-user-select: none;\r\n}\r\n\r\n\r\n/* Stylish text inside label */\r\n\r\ninput.labelauty + label > span.labelauty-unchecked,\r\ninput.labelauty + label > span.labelauty-checked {\r\n    display: inline-block;\r\n    line-height: 16px;\r\n    vertical-align: bottom;\r\n}\r\n\r\n\r\n/* Stylish icons inside label */\r\n\r\ninput.labelauty + label > span.labelauty-unchecked-image,\r\ninput.labelauty + label > span.labelauty-checked-image {\r\n    display: inline-block;\r\n    width: 16px;\r\n    height: 16px;\r\n    vertical-align: bottom;\r\n    background-repeat: no-repeat;\r\n    background-position: left center;\r\n    transition: background-image 0.5s linear;\r\n    -moz-transition: background-image 0.5s linear;\r\n    -webkit-transition: background-image 0.5s linear;\r\n    -o-transition: background-image 0.5s linear;\r\n}\r\n\r\n\r\n/* When there's a label, add a little margin to the left */\r\n\r\ninput.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked,\r\ninput.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {\r\n    margin-left: 7px;\r\n}\r\n\r\n\r\n/* When not Checked */\r\n\r\ninput.labelauty:not(:checked):not([disabled]) + label:hover {\r\n    background-color: #eaeaea;\r\n    color: #a7a7a7;\r\n}\r\n\r\ninput.labelauty:not(:checked) + label > span.labelauty-checked-image {\r\n    display: none;\r\n}\r\n\r\ninput.labelauty:not(:checked) + label > span.labelauty-checked {\r\n    display: none;\r\n}\r\n\r\n\r\n/* When Checked */\r\n\r\ninput.labelauty:checked + label {\r\n    background-color: #3498db;\r\n    color: #ffffff;\r\n}\r\n\r\ninput.labelauty:checked:not([disabled]) + label:hover {\r\n    background-color: #72c5fd;\r\n}\r\n\r\ninput.labelauty:checked + label > span.labelauty-unchecked-image {\r\n    display: none;\r\n}\r\n\r\ninput.labelauty:checked + label > span.labelauty-unchecked {\r\n    display: none;\r\n}\r\n\r\ninput.labelauty:checked + label > span.labelauty-checked {\r\n    display: inline-block;\r\n}\r\n\r\ninput.labelauty.no-label:checked + label > span.labelauty-checked {\r\n    display: block;\r\n}\r\n\r\n\r\n/* When Disabled */\r\n\r\ninput.labelauty[disabled] + label {\r\n    opacity: 0.5;\r\n}\r\n\r\n#layersOption {\r\n    height: auto;\r\n    width: 200px;\r\n    position: absolute;\r\n    right: 50px;\r\n    bottom: 0;\r\n}\r\n\r\n#layersOption li {\r\n    line-height: 50px;\r\n    text-align: right;\r\n    height: 50px;\r\n    width: 100%;\r\n    box-sizing: border-box;\r\n    border: 1px solid #9E9C9E;\r\n    background-color: #F1EFF1;\r\n    padding-right: 10px;\r\n    padding-left: 10px;\r\n}\r\n#layersOption span{\r\n    float: right;\r\n}\r\n\r\n#layersOption li i {\r\n    float: left;\r\n    line-height: 50px;\r\n    letter-spacing: 10px;\r\n    color: grey;\r\n    cursor: pointer;\r\n}\r\n\r\n#setbackgrounddropdown {\r\n    z-index: 1000;\r\n    height: 200px;\r\n    background: white;\r\n    width: 150px;\r\n    border: 1px solid grey;\r\n    color: grey;\r\n    display: block;\r\n    position: absolute;\r\n    left: 760px;\r\n    border-radius: 10px;\r\n    display: none;\r\n    cursor: pointer;\r\n}\r\n\r\n#setbackgrounddropdown li {\r\n    color: grey;\r\n    height: 50px;\r\n    line-height: 50px;\r\n    box-sizing: border-box;\r\n    padding-left: 20px;\r\n    font-weight: 30px\r\n}\r\n", ""]);
 
 // exports
 

@@ -15,7 +15,7 @@ export class Drawboard {
 	}
 
 	initDOM() {
-		const str = '<header id="toolbox"><ul class="dowebok"> <li><input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen"><label for="labelauty-42332"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">画笔</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">画笔</span></label><select id="penLineWidth"><option value="2">2px</option><option value="4">4px</option><option value="6">6px</option><option value="8">8px</option></select></li><li><input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen"><label for="labelauty-42333"> <span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">刷子</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">刷子</span></label><select id="brushWidth"><option value="5">5px</option><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option></select></li><li><input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang"><label for="labelauty-42334"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">喷枪</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">喷枪</span></label><select id="AirbrushWidth"><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option><option value="30">30px</option></select> </li><div class="btn-group" style="position: absolute;bottom: 0;"></div><button id="opencolorpicker" class="button button-glow button-rounded button-caution">拾色器</button><button type="button" id="setbackground" class="button button-glow button-rounded button-highlight">设置背景</button><ul class="dropdown-menu" id="setbackgrounddropdown"> <li><a>white</a></li><li><a>black</a></li><li><a>transparent</a></li><li><a>拾色器前景色</a></li></ul></ul></header><div id="colorpicker"></div><canvas class="db_canvas" id="canvas"></canvas><canvas class="db_canvas db_add_canvas" id="canvas-bg" height="500" width="1000" style="z-index:-999"></canvas><ul id="layersOption"></ul>'
+		const str = '<header id="toolbox"><ul class="dowebok"> <li><input type="radio" name="tool" class="labelauty" id="labelauty-42332" value="pen"><label for="labelauty-42332"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">画笔</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">画笔</span></label><select id="penLineWidth"><option value="2">2px</option><option value="4">4px</option><option value="6">6px</option><option value="8">8px</option></select></li><li><input type="radio" name="tool" class="labelauty"  id="labelauty-42333" value="pen"><label for="labelauty-42333"> <span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">刷子</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">刷子</span></label><select id="brushWidth"><option value="5">5px</option><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option></select></li><li><input type="radio" name="tool" class="labelauty" id="labelauty-42334" value="pengqiang"><label for="labelauty-42334"><span class="labelauty-unchecked-image"></span><span class="labelauty-unchecked">喷枪</span><span class="labelauty-checked-image"></span><span class="labelauty-checked">喷枪</span></label><select id="AirbrushWidth"><option value="10">10px</option><option value="15">15px</option><option value="20">20px</option><option value="30">30px</option></select> </li><div class="btn-group" style="position: absolute;bottom: 0;"></div><button id="opencolorpicker" class="button button-glow button-rounded button-caution">拾色器</button><button type="button" id="setbackground" class="button button-glow button-rounded button-highlight">设置背景</button><ul class="dropdown-menu" id="setbackgrounddropdown"> <li>white</li><li>black</li><li>transparent</li><li>拾色器前景色</li></ul></ul></header><div id="colorpicker"></div><canvas class="db_canvas" id="canvas"></canvas><canvas class="db_canvas" id="canvas-bg" height="500" width="1000" style="z-index:-999"></canvas><ul id="layersOption"></ul>'
 		document.getElementById('main').innerHTML = str;
 	}
 
@@ -41,18 +41,16 @@ export class Drawboard {
 		document.getElementById('setbackground').onclick = (e) => {
 			e.stopPropagation();
 			document.getElementById('setbackgrounddropdown').style.display = 'block';
-			let bgcllist = document.getElementById('setbackgrounddropdown').getElementsByTagName('a');
+			let bgcllist = document.getElementById('setbackgrounddropdown').getElementsByTagName('li');
 
 			for (let i = 0; i < bgcllist.length; i++) {
 				bgcllist[i].onclick = (e) => {
 					e.stopPropagation();
 					this.changeBgColor(bgcllist[i].innerHTML)
+					document.getElementById('setbackgrounddropdown').style.display = 'none';
 				}
 			}
 
-			document.getElementsByTagName('body')[0].onclick = (e) => {
-				document.getElementById('setbackgrounddropdown').style.display = 'none';
-			}
 		}
 
 	}
@@ -98,11 +96,11 @@ export class Drawboard {
 
 			let _new = document.createElement('canvas');
 			_new.className = "db_canvas db_add_canvas";
-			_new.setAttribute('id', '图层 ' + this.layer)
+			_new.setAttribute('id', ' 图层-' + this.layer)
 			document.getElementById('main').appendChild(_new);
 			_new.width = 1000;
 			_new.height = 500;
-			_new.style.zIndex = -1;
+			_new.style.zIndex = -500 + this.layer;
 			let _context = _new.getContext('2d');
 
 			this.layer++;
@@ -128,7 +126,7 @@ export class Drawboard {
 					this.layer--
 				}
 				this.canvas.onmousemove = null;
-				this.render(_new)
+				this.render()
 			};
 		}
 	}
@@ -154,11 +152,11 @@ export class Drawboard {
 
 			let _new = document.createElement('canvas');
 			_new.className = "db_canvas db_add_canvas";
-			_new.setAttribute('id', '图层 ' + this.layer)
+			_new.setAttribute('id', ' 图层-' + this.layer)
 			document.getElementById('main').appendChild(_new);
 			_new.width = 1000;
 			_new.height = 500;
-			_new.style.zIndex = -1;
+			_new.style.zIndex = -500 + this.layer;
 			let _context = _new.getContext('2d');
 
 			this.layer++;
@@ -184,7 +182,7 @@ export class Drawboard {
 					this.layer--
 				}
 				this.canvas.onmousemove = null;
-				this.render(_new)
+				this.render()
 			}
 		};
 	}
@@ -208,11 +206,11 @@ export class Drawboard {
 
 			let _new = document.createElement('canvas');
 			_new.className = "db_canvas db_add_canvas";
-			_new.setAttribute('id', '图层 ' + this.layer)
+			_new.setAttribute('id', ' 图层-' + this.layer)
 			document.getElementById('main').appendChild(_new);
 			_new.width = 1000;
 			_new.height = 500;
-			_new.style.zIndex = -1;
+			_new.style.zIndex = -500 + this.layer;
 			let _context = _new.getContext('2d');
 
 			this.layer++;
@@ -233,7 +231,7 @@ export class Drawboard {
 			this.canvas.onmouseup = (e) => {
 				this.canvas.onmousemove = null;
 				window.clearInterval(timer)
-				this.render(_new)
+				this.render()
 			};
 		};
 	}
@@ -252,9 +250,22 @@ export class Drawboard {
 		con.stroke();
 	}
 
-	render(dom) {
-		let str = '<li><i class="fa fa-times" aria-hidden="true"></i> <i class="fa fa-eye showornot" aria-hidden="true"></i>' + dom.id + '</li>'
-		document.getElementById('layersOption').innerHTML = str + document.getElementById('layersOption').innerHTML;
+	render() {
+		let _canvaslayers = document.getElementsByClassName('db_add_canvas');
+		let layersObj = [];
+		for (let i = 0; i < _canvaslayers.length; i++) {
+			layersObj.push({
+				id: _canvaslayers[i].id,
+				zindex: parseInt(_canvaslayers[i].style.zIndex)
+			})
+		}
+		layersObj.sort((a, b) => {
+			return b.zindex - a.zindex
+		})
+		let str = layersObj.map((elem) => {
+			return '<li><i class="fa fa-times" aria-hidden="true"></i> <i class="fa fa-eye showornot" aria-hidden="true"></i>' + elem.id + ' <span><i class="fa fa-caret-up" aria-hidden="true"></i></span> </li>'
+		})
+		document.getElementById('layersOption').innerHTML = str.join('');
 		this.initlayersOp();
 	}
 
@@ -262,12 +273,13 @@ export class Drawboard {
 		let _canvaslayers = document.getElementsByClassName('db_add_canvas');
 		let _layersDel = document.getElementById('layersOption').getElementsByClassName('fa-times');
 		let _layersEye = document.getElementById('layersOption').getElementsByClassName('showornot');
-		let _layers = document.getElementById('layersOption').getElementsByTagName('li')
+		let _layers = document.getElementById('layersOption').getElementsByTagName('li');
+		let upcarets = document.getElementById('layersOption').getElementsByClassName('fa-caret-up');
 		for (let i = 0; i < _layersDel.length; i++) {
 			_layersDel[i].onclick = (e) => {
 				document.getElementById('layersOption').removeChild(_layers[i])
 				document.getElementById('main').removeChild(_canvaslayers[_canvaslayers.length - i - 1])
-				this.initlayersOp()
+				this.render()
 			}
 		}
 		for (let i = 0; i < _layersEye.length; i++) {
@@ -279,6 +291,14 @@ export class Drawboard {
 					_layersEye[i].className = _layersEye[i].className.replace(/eye/, 'eye-slash')
 					_canvaslayers[_canvaslayers.length - i - 1].style.display = 'none'
 				}
+			}
+		}
+		for (let i = 0; i < upcarets.length; i++) {
+			upcarets[i].onclick = (e) => {
+				let x = _layers[i].innerHTML.split(" ");
+				let _id = document.getElementById(' ' + x[9])
+				_id.style.zIndex = parseInt(_id.style.zIndex) + 1;
+				this.render()
 			}
 		}
 	}

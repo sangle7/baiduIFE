@@ -43,7 +43,7 @@ canvas {
     box-sizing: border-box;
 }
 
-.db_add_canvas {
+.db_add_canvas,#canvas-bg{
     position: absolute;
     left: 0;
 }
@@ -360,7 +360,9 @@ input.labelauty[disabled] + label {
     background-color: #F1EFF1;
     padding-right: 10px;
     padding-left: 10px;
-    cursor: pointer;
+}
+#layersOption span{
+    float: right;
 }
 
 #layersOption li i {
@@ -368,6 +370,7 @@ input.labelauty[disabled] + label {
     line-height: 50px;
     letter-spacing: 10px;
     color: grey;
+    cursor: pointer;
 }
 
 #setbackgrounddropdown {
@@ -381,7 +384,8 @@ input.labelauty[disabled] + label {
     position: absolute;
     left: 760px;
     border-radius: 10px;
-    display: none;cursor: pointer;
+    display: none;
+    cursor: pointer;
 }
 
 #setbackgrounddropdown li {
@@ -390,9 +394,5 @@ input.labelauty[disabled] + label {
     line-height: 50px;
     box-sizing: border-box;
     padding-left: 20px;
-}
-
-#setbackgrounddropdown li a {
-    color: grey;
     font-weight: 30px
 }
