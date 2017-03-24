@@ -4,6 +4,7 @@ export class Colorpicker {
         this.initDOM();
         this.canvas2 = document.getElementById('colorpicker_canvas2');
         this.canvas1 = document.getElementsByClassName('canvas1')[0];
+        this.circle1 = document.getElementsByClassName('circle')[0];
         this.context2 = this.canvas2.getContext('2d');
         this._inputRGB = document.getElementsByClassName('testTxt');
         this.canvas2.width = 20;
@@ -101,7 +102,7 @@ export class Colorpicker {
                 if (this._inputRGB[i].value < 0) {
                     this._inputRGB[i].value = 0
                 }
-                this.RGBToHSL(_inputRGB[0].value, _inputRGB[1].value, _inputRGB[2].value)
+                this.RGBToHSL(this._inputRGB[0].value, this._inputRGB[1].value, this._inputRGB[2].value)
                 this.changeColorByInputRGB();
             });
         }
@@ -134,17 +135,17 @@ export class Colorpicker {
     changeColorByInputRGB() {
         let R = {
                 name: 'r',
-                value: _inputRGB[0].value,
+                value: this._inputRGB[0].value,
                 calculate: null
             },
             G = {
                 name: 'g',
-                value: _inputRGB[1].value,
+                value: this._inputRGB[1].value,
                 calculate: null
             },
             B = {
                 name: 'b',
-                value: _inputRGB[2].value,
+                value: this._inputRGB[2].value,
                 calculate: null
             },
             _array = [R, G, B];
@@ -156,11 +157,11 @@ export class Colorpicker {
             _array[0].calculate = 255;
             _array[1].calculate = 255;
             _array[2].calculate = 0;
-            _canvas1.style.backgroundColor = 'rgb(' + R.calculate + ',' + G.calculate + ',' + B.calculate + ')';
+            this.canvas1.style.backgroundColor = 'rgb(' + R.calculate + ',' + G.calculate + ',' + B.calculate + ')';
             let y = 400 * (1 - _array[0].value / 255),
                 x = 400 * (1 - _array[2].value / _array[0].value);
-            this.canvas1.style.top = y - 9 + 'px';
-            this.canvas1.style.left = this.colorpicker.offsetLeft + x - 9 + 'px';
+            this.circle1.style.top = y - 9 + 'px';
+            this.circle1.style.left = this.colorpicker.offsetLeft + x - 9 + 'px';
 
         } else {
             _array[0].calculate = 255;
@@ -168,9 +169,9 @@ export class Colorpicker {
             let y = 400 * (1 - _array[0].value / 255),
                 x = 400 * (1 - _array[2].value / _array[0].value);
             _array[1].calculate = 255 - (400 / x) * (255 - 400 * _array[1].value / (400 - y))
-            _canvas1.style.backgroundColor = 'rgb(' + Math.round(R.calculate) + ',' + Math.round(G.calculate) + ',' + Math.round(B.calculate) + ')';
-            this.canvas1.style.top = y - 9 + 'px';
-            this.canvas1.style.left = this.colorpicker.offsetLeft + x - 9 + 'px';
+            this.canvas1.style.backgroundColor = 'rgb(' + Math.round(R.calculate) + ',' + Math.round(G.calculate) + ',' + Math.round(B.calculate) + ')';
+            this.circle1.style.top = y - 9 + 'px';
+            this.circle1.style.left = this.colorpicker.offsetLeft + x - 9 + 'px';
         }
     }
 
