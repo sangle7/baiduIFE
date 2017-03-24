@@ -100,6 +100,7 @@ var Colorpicker = exports.Colorpicker = function () {
         this.initDOM();
         this.canvas2 = document.getElementById('colorpicker_canvas2');
         this.canvas1 = document.getElementsByClassName('canvas1')[0];
+        this.circle1 = document.getElementsByClassName('circle')[0];
         this.context2 = this.canvas2.getContext('2d');
         this._inputRGB = document.getElementsByClassName('testTxt');
         this.canvas2.width = 20;
@@ -206,7 +207,7 @@ var Colorpicker = exports.Colorpicker = function () {
                     if (_this2._inputRGB[i].value < 0) {
                         _this2._inputRGB[i].value = 0;
                     }
-                    _this2.RGBToHSL(_inputRGB[0].value, _inputRGB[1].value, _inputRGB[2].value);
+                    _this2.RGBToHSL(_this2._inputRGB[0].value, _this2._inputRGB[1].value, _this2._inputRGB[2].value);
                     _this2.changeColorByInputRGB();
                 });
             };
@@ -249,17 +250,17 @@ var Colorpicker = exports.Colorpicker = function () {
         value: function changeColorByInputRGB() {
             var R = {
                 name: 'r',
-                value: _inputRGB[0].value,
+                value: this._inputRGB[0].value,
                 calculate: null
             },
                 G = {
                 name: 'g',
-                value: _inputRGB[1].value,
+                value: this._inputRGB[1].value,
                 calculate: null
             },
                 B = {
                 name: 'b',
-                value: _inputRGB[2].value,
+                value: this._inputRGB[2].value,
                 calculate: null
             },
                 _array = [R, G, B];
@@ -271,20 +272,20 @@ var Colorpicker = exports.Colorpicker = function () {
                 _array[0].calculate = 255;
                 _array[1].calculate = 255;
                 _array[2].calculate = 0;
-                _canvas1.style.backgroundColor = 'rgb(' + R.calculate + ',' + G.calculate + ',' + B.calculate + ')';
+                this.canvas1.style.backgroundColor = 'rgb(' + R.calculate + ',' + G.calculate + ',' + B.calculate + ')';
                 var y = 400 * (1 - _array[0].value / 255),
                     x = 400 * (1 - _array[2].value / _array[0].value);
-                this.canvas1.style.top = y - 9 + 'px';
-                this.canvas1.style.left = this.colorpicker.offsetLeft + x - 9 + 'px';
+                this.circle1.style.top = y - 9 + 'px';
+                this.circle1.style.left = this.colorpicker.offsetLeft + x - 9 + 'px';
             } else {
                 _array[0].calculate = 255;
                 _array[2].calculate = 0;
                 var _y = 400 * (1 - _array[0].value / 255),
                     _x = 400 * (1 - _array[2].value / _array[0].value);
                 _array[1].calculate = 255 - 400 / _x * (255 - 400 * _array[1].value / (400 - _y));
-                _canvas1.style.backgroundColor = 'rgb(' + Math.round(R.calculate) + ',' + Math.round(G.calculate) + ',' + Math.round(B.calculate) + ')';
-                this.canvas1.style.top = _y - 9 + 'px';
-                this.canvas1.style.left = this.colorpicker.offsetLeft + _x - 9 + 'px';
+                this.canvas1.style.backgroundColor = 'rgb(' + Math.round(R.calculate) + ',' + Math.round(G.calculate) + ',' + Math.round(B.calculate) + ')';
+                this.circle1.style.top = _y - 9 + 'px';
+                this.circle1.style.left = this.colorpicker.offsetLeft + _x - 9 + 'px';
             }
         }
     }, {
